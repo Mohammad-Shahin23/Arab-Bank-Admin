@@ -1,0 +1,19 @@
+
+.Navbar-logo{
+    width: 300px;
+    height: 80px;
+    margin-right: 50px;
+}
+/* .navebar-color{
+    background-color: rgb(37, 42, 42);
+} */
+.style-table{
+    padding: 10px ;
+}
+.tabel-titel{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 50px;
+}
+

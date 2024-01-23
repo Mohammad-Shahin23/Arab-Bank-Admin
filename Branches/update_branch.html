@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../Branches/CSS_files/update_banch.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <title>Update a Branch</title>
+
+</head>
+
+<body>
+
+  <h1>Update a Branch</h1>
+  <form id="updatebranchForm" >
+    <label for="branchId" style="display: none;">Branch ID:</label>
+    <input type="text" id="branchId" name="branchId" style="display: none;" required>
+
+    
+
+    <label for="branchName">Branch Name:</label>
+    <input type="text" id="branchName" name="branchName" required>
+
+    <label for="branchNameAr">Branch Name (AR):</label>
+    <input type="text" id="branchNameAr" name="branchNameAr" required>
+
+    <label for="branchNumber">Branch Number:</label>
+    <input type="text" id="branchNumber" name="branchNumber" required>
+
+
+
+    <label for="branchCountry" style="display: none;">Branch ID:</label>
+    <input type="text" id="branchCountry" name="branchCountry" style="display: none;" required>
+
+    <label for="branchCity" style="display: none;">branchCity</label>
+    <input type="text" id="branchCity" name="branchCity" style="display: none;" required>
+
+    
+
+
+    
+
+    
+
+    <div class="d-grid gap-2" id="form-button">
+      <button id="updateButton" class="btn btn-success" type="button" onclick="updatebranch(document.getElementById('branchId').value,document.getElementById('branchCity').value,document.getElementById('branchCountry').value)">Update</button>
+      <button id="closeButton" class="btn btn-danger" type="button" onclick="closeForm()">Close</button>
+    </div>
+  </form>
+
+  <script src="../Branches/JS_files/branches.js" defer></script>
+  <script src="../Branches/JS_files/update_branch.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>

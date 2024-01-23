@@ -1,0 +1,40 @@
+#bodystyle{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+   
+    /* opacity: 50%; */
+    
+  }
+    
+  
+    h1 {
+      text-align: center;
+    }
+  
+    #updateproductForm {
+      max-width: 400px;
+      margin: 0 auto;
+      border: solid 2px ;
+      border-radius: 10px;
+      padding: 10px 20px;
+     
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+    #form-button{
+      padding-top: 10px;
+      display: flex;
+    }
+  

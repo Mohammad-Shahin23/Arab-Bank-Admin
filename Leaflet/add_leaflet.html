@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./CSS_files/add_leaflet.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Add New leaflet</title>
+
+</head>
+<body id="bodystyle">
+
+  <h1>Add New sub-Product</h1>
+  
+  
+
+
+  <form id="leafletForm">
+    <!-- Product Information -->
+    <div class="form-group">
+      <label for="leafletProductName">Product Name:</label>
+      <input type="text" id="leafletProductName" name="leafletProductName" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="leafletSubProductName">Sub-poduct Name (AR):</label>
+      <input type="text" id="leafletSubProductName" name="leafletSubProductName" required>
+    </div>
+  
+    <!-- Country Input -->
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" id="country" name="country" required>
+    </div>
+  
+    <!-- Leaflet Pages -->
+    <div class="form-group">
+      <label for="leafletPages">Leaflet Pages:</label>
+      <div class="leaflet-pages">
+        <!-- Pages 1 to 6 -->
+        <input type="file" id="leafletPage1" name="leafletPage1" accept="image/*" required onchange="previewImage(this);">
+        <img id="leafletPage1Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+  
+        <label for="leafletPage2">leaflet Page2</label>
+    <input type="file" id="leafletPage2" name="leafletPage2" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage2Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage3">leaflet Page3</label>
+    <input type="file" id="leafletPage3" name="leafletPage3" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage3Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage4">leaflet Page4</label>
+    <input type="file" id="leafletPage4" name="leafletPage4" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage4Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage5">leaflet Page5</label>
+    <input type="file" id="leafletPage5" name="leafletPage5" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage5Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage6">leaflet Page6</label>
+    <input type="file" id="leafletPage6" name="leafletPage6" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage6Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+  
+      </div>
+    </div>
+  
+    <!-- Leaflet Pages (AR) -->
+    <div class="form-group">
+      <label for="leafletPagesAR">Leaflet Pages (AR):</label>
+      <div class="leaflet-pages-ar">
+        <!-- Pages 1AR to 6AR -->
+        <input type="file" id="leafletPage1AR" name="leafletPage1AR" accept="image/*" required onchange="previewImage(this);">
+        <img id="leafletPage1ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+
+        <label for="leafletPage2AR">leaflet Page2AR</label>
+    <input type="file" id="leafletPage2AR" name="leafletPage2AR" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage2ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage3AR">leaflet Page3AR</label>
+    <input type="file" id="leafletPage3AR" name="leafletPage3AR" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage3ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage4AR">leaflet Page4AR</label>
+    <input type="file" id="leafletPage4AR" name="leafletPage4AR" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage4ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage5AR">leaflet Page5AR</label>
+    <input type="file" id="leafletPage5AR" name="leafletPage5AR" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage5ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+
+    <label for="leafletPage6AR">leaflet Page6AR</label>
+    <input type="file" id="leafletPage6AR" name="leafletPage6AR" accept="image/*" required onchange="previewImage(this);">
+    <img id="leafletPage6ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+  
+        <!-- Repeat similar code for pages 2AR to 6AR -->
+        <!-- ... -->
+  
+      </div>
+    </div>
+
+  
+    <!-- Form Buttons -->
+    <div class="d-grid gap-2" id="form-button">
+      <button class="btn btn-success btn-sm" type="button" onclick="submitForm()">Submit</button>
+      <button class="btn btn-danger btn-sm" type="button" onclick="closeForm()">Close</button>
+    </div>
+  </form>
+  
+  <script>
+  
+
+    </script>
+
+    
+  
+  <script src="../Leaflet/JS_files/add_leaflet.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script>
+    function goToAddsubProductPage() {
+  window.location.href = 'add_subProducts.html';
+  }
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Sub-Products/CSS_files/subProducts.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+ 
+    
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: rgb(0, 167, 244); " >
+            <div class="container-fluid">
+                <img class="Navbar-logo" src="../assets/ab_logo_color-01-removebg-preview.png" alt="Arab_Bank_Logo">
+              
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown" style="font-size:large;">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"; >
+                          General
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="../Countries/countries.html">Country</a></li>
+                          <li><a class="dropdown-item" href="../Cities/cities.html">subProduct</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="../Branches/branches.html">Bransh</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item dropdown" style="font-size:large;">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Discovery/Consultation
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="../Products/products.html">Product</a></li>
+                          <li><a class="dropdown-item" href="subProducts.html">Sub Product</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="../Leaflet/leaflet.html">Leaflet</a></li>
+                        </ul>
+                      </li>
+                  
+                  
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    <main class="style-table">
+      <h2>Sub-Product Data </h2>
+
+      <div class="dropDown-raw">
+        <div>
+        <label class="select" for="countrySlec">
+          <div class="select-wrapper">
+            <select id="countrySlec" required="required" onchange="fetchProducts()">
+              <option value="" disabled="disabled" selected="selected">Select a Country</option>
+              <option value="Jordan">Jordan</option>
+              <option value="UAE">UAE</option>
+              <option value="Egypt">Egypt</option>
+              <option value="Palestine">Palestine</option>
+            </select>
+            
+          </div>
+        </label>
+
+        <label class="select" for="productSlec">
+          <div class="select-wrapper">
+            <select id="productSlec" required="required" onchange="filterProducts()">
+              <option value="" disabled="disabled" selected="selected">Select a Product</option>
+            </select>
+            
+          </div>
+        </label>
+      </div>
+        
+
+      <button type="button" class="btn btn-primary btn-sm" onclick="goToAddsubProductPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        Add New Sub Product
+    </button>
+
+      </div>
+        <table class="table  table-striped">
+            <thead>
+              <tr class="table-Primary">
+                <th scope="col">ID</th>
+                <th scope="col">sub-Product Name</th>
+                <th scope="col">sub-Product Name(AR)</th>
+                <th scope="col">product</th>
+                <th scope="col">loanDetail</th>
+                <th scope="col">Country</th>
+                <th scope="col">image</th>
+                <th scope="col">Edit/Delete</th>
+                
+              </tr>
+            </thead>
+            <tbody id="subProductTable" scope="row">
+              
+              
+            </tbody>
+            
+          </table>
+
+          
+    </main>
+    
+
+    
+    
+
+    <script src="../Sub-Products/JS_files/subProducts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>
