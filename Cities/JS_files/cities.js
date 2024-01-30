@@ -107,6 +107,25 @@ if (selectDropdown) {
 
 });
 
+fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(countries => {
+            // Update the options in the select element
+            const countrySelect = document.getElementById('countrySlec');
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.countryName;
+                option.textContent = country.countryName;
+                countrySelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching countries:', error));
+
 
 function fetchCities() {
     const selectedCountry = document.getElementById('countrySlec').value;

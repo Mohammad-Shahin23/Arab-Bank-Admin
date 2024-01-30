@@ -1,79 +1,74 @@
-#bodystyle {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 20px;
 }
 
 h1 {
   text-align: center;
+  color: #007bff;
 }
 
-#leafletForm {
-  max-width: 800px; /* Adjust the width as needed */
+form {
+  max-width: 600px;
   margin: 0 auto;
-  border: solid 2px;
-  border-radius: 10px;
+  background-color: #ffffff;
   padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 label {
+  display: block;
+  font-weight: bold;
   margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="file"] {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   box-sizing: border-box;
-  border-radius: 5px;
-  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
-/* Style the custom file input */
-.input-file-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 5px;
+.leaflet-pages label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.input-file-wrapper label {
-  background-color: #4CAF50;
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.input-file-wrapper input[type="file"] {
-  display: none;
+.leaflet-pages input[type="file"] {
+  margin-bottom: 10px;
 }
 
 img {
-  max-width: 100%;
-  display: block;
-  margin-top: 10px;
+  max-width: 50%;
+  /* display: none; */
 }
 
 #form-button {
-  padding-top: 10px;
+  text-align: center;
 }
 
-.leaflet-pages,
-.leaflet-pages-ar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px; /* Add some space between images */
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-/* Responsive styling */
-@media (min-width: 600px) {
-  .leaflet-pages,
-  .leaflet-pages-ar {
-    flex-direction: row; /* Set to row for larger screens */
-  }
+#updateButton {
+  background-color: #28a745;
+  color: #fff;
+}
+
+#closeButton {
+  background-color: #dc3545;
+  color: #fff;
 }

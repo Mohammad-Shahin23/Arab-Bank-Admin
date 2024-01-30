@@ -18,48 +18,49 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: rgb(0, 167, 244); " >
-            <div class="container-fluid">
-                <img class="Navbar-logo" src="../assets/ab_logo_color-01-removebg-preview.png" alt="Arab_Bank_Logo">
-              
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown" style="font-size:large;" >
-                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"; >
-                          General
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="../Countries/countries.html">branch</a></li>
-                          <li><a class="dropdown-item" href="../Cities/cities.html">City</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="branches.html">Bransh</a></li>
-                        </ul>
-                      </li>
-                      <li class="nav-item dropdown" style="font-size:large;">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Discovery/Consultation
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="../Products/products.html">Product</a></li>
-                          <li><a class="dropdown-item" href="../Sub-Products/subProducts.html">Sub Product</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="leafLet">Leaflet</a></li>
-                        </ul>
-                      </li>
-                  
-                  
-                </ul>
-                
-              </div>
-            </div>
-          </nav>
+      <nav class="navbar navbar-expand-lg p-3 mb-2 bg-body-secondary  " >
+        <div class="container-fluid ">
+            <img class="Navbar-logo" src="../assets/ab_logo_color-01-removebg-preview.png" alt="Arab_Bank_Logo">
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav   nav-underline me-auto mb-2 mb-lg-0">
+              <li class="nav-item ">
+                <a class=" nav-link   " href="../Countries/countries.html">Country</a>
+              </li>
+              <li class="nav-item">
+                <li><a class="nav-link" href="../Cities/cities.html">City</a></li>
+              </li>
+              <li class="nav-item active">
+                <li><a class="nav-link active " href="../Branches/branches.html">Bransh</a>
+              </li>
+
+
+               
+                <li class="nav-item">
+                  <a class="nav-link " href="../Products/products.html">Product</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="../Sub-Products/subProducts.html">Sub Product</a>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="../Leaflet/leaflet.html">Leaflet</a>
+                  </li>
+
+                  </li>
+                  </ul>
+            
+          </div>
+        </div>
+      </nav>
+
     </header>
     <main class="style-table">
       <div class="tabel-titel">
-        <h2 style>branch Data Table</h2>
+        <h2 style>Dranch Data Table</h2>
        
 
       </div>
@@ -72,19 +73,15 @@
           </symbol>
         </svg>
         <div class="dropDown-list">      
-          <label class="select" for="country">
-            <select id="country" required="required" onchange="fetchCities()">
-                <option value="" disabled="disabled" selected="selected">Country</option>
-                <option value="Jordan">Jordan</option>
-                <option value="UAE">UAE</option>
-                <option value="Egypt">Egypt</option>
-                <option value="Palestine">Palestine</option>
-                <!-- Add other countries as needed -->
+          <label class="select" for="countrySlec">
+            <select id="countrySlec" required="required" onchange="fetchCities()">
+                <option value="" disabled="disabled" selected="selected">Select option</option>
+                <!-- Options will be dynamically added here -->
             </select>
-          <svg>
-              <use xlink:href="#select-arrow-down"></use>
-          </svg>
-      </label>
+            <svg>
+                <use xlink:href="#select-arrow-down"></use>
+            </svg>
+        </label>
 
       <label class="select" for="city">
         <select id="city" required="required" onclick="fetchBranches()">
@@ -103,7 +100,7 @@
   </div> 
     
         <button type="button" class="btn btn-primary btn-sm" onclick="goToAddbranchPage()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="16"></line>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
@@ -118,7 +115,7 @@
 
 
         <!-- <button class="add-button" onclick="goToAddbranchPage()">Add New branch</button> -->
-        <table class="table  table-striped">
+        <table class="table table table-Primary .table-responsive table-hover">
             <thead>
               <tr class="table-Primary">
                 <th scope="col">ID</th>
@@ -128,7 +125,7 @@
                 <th scope="col">Edit/Delete</th>
               </tr>
             </thead>
-            <tbody id="branchTable" scope="row">
+            <tbody id="branchTable" class="table-group-divider" scope="row">
               
               
             </tbody>

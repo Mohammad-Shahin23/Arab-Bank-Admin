@@ -1,40 +1,74 @@
-#bodystyle{
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-   
-    /* opacity: 50%; */
-    
-  }
-    
-  
-    h1 {
-      text-align: center;
-    }
-  
-    #updateproductForm {
-      max-width: 400px;
-      margin: 0 auto;
-      border: solid 2px ;
-      border-radius: 10px;
-      padding: 10px 20px;
-     
-    }
-  
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-  
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      border-radius: 5px;
-    }
-    #form-button{
-      padding-top: 10px;
-      display: flex;
-    }
-  
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #007bff;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.leaflet-pages label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.leaflet-pages input[type="file"] {
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 50%;
+  /* display: none; */
+}
+
+#form-button {
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#updateButton {
+  background-color: #28a745;
+  color: #fff;
+}
+
+#closeButton {
+  background-color: #dc3545;
+  color: #fff;
+}

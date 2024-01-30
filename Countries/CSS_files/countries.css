@@ -1,7 +1,7 @@
 
 .Navbar-logo{
-    width: 300px;
-    height: 80px;
+    width: 280px;
+    height: 70px;
     margin-right: 50px;
 }
 /* .navebar-color{
@@ -10,6 +10,13 @@
 .style-table{
     padding: 10px ;
 }
+
+.style-table h2 {
+    font-family: 'PTSans-Regular'; /* Set the desired font family for h2 in .style-table */
+    
+    font-weight: bold; /* Set the desired font weight for h2 in .style-table */
+    /* Add any other text styles as needed */
+}
 .tabel-titel{
     display: flex;
     justify-content: space-between;
@@ -17,3 +24,40 @@
     margin-bottom: 50px;
 }
 
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}
+.navbar-nav .nav-link {
+    color: black; /* Set the default color for non-active links */
+    /* Remove underline for non-active links */
+}
+
+.navbar-nav .nav-link:hover {
+    color:rgb(0, 140, 255); /* Set the color for non-active links on hover */
+    text-decoration: none; /* Remove underline on hover for non-active links */
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    color: rgb(0, 67, 122); /* Set the color for the active link */
+    ; /* Add underline for the active link */
+}
+
+.navbar-nav .nav-link {
+    font-family: 'PTSans-Regular'; /* Set the desired font family */
+    font-size: 16px; /* Set the desired font size */
+    font-weight: 400; /* Set the desired font weight */
+    /* Add any other text styles as needed */
+}
+
+.style-table th {
+    font-family: 'PTSans-Regular'; /* Set the desired font family for th in .style-table */
+    font-size: 18px; /* Set the desired font size for th in .style-table */
+    font-weight: bold;
+    text-align: center; /* Set the desired font weight for th in .style-table */
+    /* Add any other text styles for th as needed */
+}
+
+.style-table td {
+    text-align: center; /* Center the text horizontally in table cells */
+    vertical-align: middle; /* Center the text vertically in table cells */
+}

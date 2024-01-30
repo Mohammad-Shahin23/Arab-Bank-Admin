@@ -3,6 +3,12 @@ populateForm(urlParams.get('id'));
 
 function populateForm(id) {
     console.log('Edit Row function called with ID:', id);
+
+    if (id === null || id === undefined) {
+        console.error('Error: ID is null or undefined.');
+        return;
+    }
+
     fetch(`https://arabbank.azurewebsites.net/api/subproduct/${id}`, {
         method: 'GET'
     })
@@ -10,29 +16,17 @@ function populateForm(id) {
     .then(subProduct => {
         console.log('API Response:', subProduct);
 
-        // Check specific properties
-        console.log('ID:', subProduct.id);
-        console.log('subProductName:', subProduct.subProductName);
-        console.log('subProductNameAr:', subProduct.subProductNameAr);
-        console.log('image:', subProduct.image);
-        console.log('loanDetail:', subProduct.loanDetail);
         if (subProduct) {
             const currentSubProductData = subProduct;
 
-            // Set values for each form field
-            document.getElementById('subProductId').value = currentSubProductData.id;
-            document.getElementById('subProductName').value = currentSubProductData.subProductName;
-            document.getElementById('subProductNameAR').value = currentSubProductData.subProductNameAr;
-            document.getElementById('country').value = currentSubProductData.country;
-            document.getElementById('loanDetail').value = currentSubProductData.loanDetail;
-            document.getElementById('product').value = currentSubProductData.product;
-            
-            // Display the image
-            displayImage(currentSubProductData.image);
+            setFormField('id', currentSubProductData.id);
+            setFormField('subProductName', currentSubProductData.subProductName);
+            setFormField('subProductNameAR', currentSubProductData.subProductNameAr);
+            setFormField('country', currentSubProductData.country);
+            setFormField('product', currentSubProductData.product);
+            setFormField('loanDetail', currentSubProductData.loanDetail);
 
-            // Additional operations can be performed here
-
-            console.log('subProductNameElement:', document.getElementById('subProductName'));
+            displayImageInArea(currentSubProductData.image);
         } else {
             console.error('Error: SubProduct data not found or invalid.');
         }
@@ -40,167 +34,187 @@ function populateForm(id) {
     .catch(error => console.error('Error fetching subProduct data:', error));
 }
 
-function displayImage(base64Image) {
-    const imageElement = document.getElementById('displayedImage');
-
-    // Convert base64 to blob
-    const blob = b64toBlob(base64Image, 'image/png');
-
-    // Create an object URL for the blob
-    const blobUrl = URL.createObjectURL(blob);
-
-    // Set the blob URL as the image source after the image has loaded
-    imageElement.onload = function () {
-        URL.revokeObjectURL(blobUrl); // Clean up the object URL to prevent memory leaks
-    };
-
-    // Set the blob URL as the image source
-    imageElement.src = blobUrl;
-}
-
-// Function to convert base64 to blob
-function b64toBlob(base64, type = 'application/octet-stream') {
-    // Remove data URL part if present
-    const base64WithoutHeader = base64.replace(/^data:[^;]+;base64,/, '');
-
-    const sliceSize = 512;
-    const byteCharacters = atob(base64WithoutHeader);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
+function setFormField(fieldId, value) {
+    const element = document.getElementById(fieldId);
+    if (element) {
+        element.value = value;
+    } else {
+        console.error(`Error: Element with ID '${fieldId}' not found.`);
     }
+}
 
-    const blob = new Blob(byteArrays, { type });
-    return blob;
+function displayImageInArea(base64String) {
+    console.log('Displaying image:', base64String);
+
+    const imgArea = document.querySelector('.img-area');
+    if (imgArea) {
+        // Remove existing images
+        const allImg = Array.from(imgArea.querySelectorAll('img'));
+        allImg.forEach(item => item.remove());
+
+        // Create a new image element
+        const img = document.createElement('img');
+        img.src = base64String;
+        img.style.width = '100%';  // Ensure the image covers the entire area
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';  // Maintain aspect ratio and cover the area
+
+        // Append the new image
+        imgArea.appendChild(img);
+        imgArea.classList.add('active');
+        imgArea.dataset.img = base64String;
+    } else {
+        console.error('Error: Image area element not found.');
+    }
+}
+
+function handleFileChange(event) {
+    console.log('File input changed.');
+
+    const fileInput = event.target;
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const base64String = event.target.result;
+            console.log('Converted to base64:', base64String);
+            displayImageInArea(base64String);
+        };
+        reader.onerror = function (error) {
+            console.error('Error reading file:', error);
+        };
+        reader.readAsDataURL(file);
+    }
 }
 
 
 
-// Function to display the selected image
-function updateImagePreview(base64Image) {
-    const previewImageElement = document.getElementById('displayedImage');
-    
-    // Convert base64 to blob
-    const blob = b64toBlob(base64Image, 'image/png');
-    
-    // Create an object URL for the blob
-    const blobUrl = URL.createObjectURL(blob);
-    
-    // Set the blob URL as the image source after the image has loaded
-    previewImageElement.onload = function () {
-        URL.revokeObjectURL(blobUrl); // Clean up the object URL to prevent memory leaks
-    };
-    
-    // Set the blob URL as the image source
-    previewImageElement.src = blobUrl;
-}
-
-// Add an event listener for the image input change event
-document.getElementById('image').addEventListener('change', function() {
-    // Check if an image is selected
-    if (this.files.length > 0) {
-        const imageFile = this.files[0];
-
-        // Read the image file as a data URL (base64)
+function convertFileToBase64(file) {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader();
 
-        reader.onload = function () {
-            const imageData = reader.result;
+        reader.onload = function (event) {
+            let base64String = event.target.result;
 
-            // Call updateImagePreview to display the selected image
-            updateImagePreview(imageData);
+            // Ensure that the base64 string is in PNG format
+            base64String = base64String.replace(/^data:image\/(jpeg|jpg);base64,/, 'data:image/png;base64,');
+
+            console.log('Converted to base64:', base64String); // Log the base64 string
+
+            resolve(base64String);
         };
 
-        // Read the image file as a data URL
-        reader.readAsDataURL(imageFile);
-    }
+        reader.onerror = function (error) {
+            console.error('Error converting file to base64:', error); // Log any errors
+            reject(error);
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
+const inputFile = document.querySelector('#file');
+const imgArea = document.querySelector('.img-area');
+const selectImage = document.querySelector('.select-image');
+
+// Prevent default form submission when selecting an image
+selectImage.addEventListener('click', function (event) {
+    event.preventDefault();
+    inputFile.click();
 });
 
-function updatesubProduct() {
-    const subProductId = document.getElementById('subProductId').value;
-    const subProductName = document.getElementById('subProductName').value;
-    const subProductNameAR = document.getElementById('subProductNameAR').value;
-    const country = document.getElementById('country').value;
-    const loanDetail = document.getElementById('loanDetail').value;
-    const product = document.getElementById('product').value;
+inputFile.addEventListener('change', handleFileChange);
 
-    // Get the image file input element
-    const imageInput = document.getElementById('image');
+document.getElementById('updateButton').addEventListener('click', async function (event) {
+    event.preventDefault(); // Prevent default form submission
+    await handleUpdate();
+});
 
-    // Check if an image is selected
-    if (imageInput.files.length > 0) {
-        const imageFile = imageInput.files[0];
+async function handleUpdate() {
+    const subProductId = document.getElementById('id').value;
+    const updatedFormData = await getUpdatedFormData(); // Use 'await' to wait for the result
 
-        // Read the image file as a data URL (base64)
-        const reader = new FileReader();
+    await updatesubProduct(subProductId, updatedFormData);
+    closeForm(); // Add this line to close the form
+}
 
-        reader.onload = function () {
-            const imageData = reader.result;
+async function updatesubProduct(subProductId, updatedFormData) {
+    try {
+        const apiUrl = `https://arabbank.azurewebsites.net/api/subProduct/${subProductId}`;
+        console.log('PUT Request URL:', apiUrl);
 
-            // Call updateImagePreview to display the selected image
-            updateImagePreview(imageData);
-
-            // Create formData with base64-encoded image data
-            const formData = {
-                "id": subProductId,
-                "subProductName": subProductName,
-                "subProductNameAr": subProductNameAR,
-                "loanDetail": loanDetail,
-                "country": country,
-                "product": product,
-                "image": imageData  // Base64-encoded image data
-            };
-
-            // Perform the fetch with the formData
-            fetch(`https://arabbank.azurewebsites.net/api/subProduct/${subProductId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => {
-                console.log('Response from server:', response);
-                if (response.ok) {
-                    // The update was successful, you might not have data in the response
-                    // Optionally, you can log a success message or handle it as needed
-                    console.log('SubProduct updated successfully.');
-                } else {
-                    // The server returned an error status code
-                    // Optionally, you can log an error message or handle it as needed
-                    console.error('Error updating subProduct. Server returned:', response.status, response.statusText);
-                }
-            })
-            .then(() => {
-                // Optionally, you can navigate to the specified page after successful submission
-                window.location.href = 'subProducts.html';
-                closeForm();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Handle the error, e.g., display an error message
-                alert('An error occurred while updating the subProduct.');
-            });
+        const requestBody = {
+            id: updatedFormData.id,
+            subProductName: updatedFormData.subProductName,
+            subProductNameAR: updatedFormData.subProductNameAR,
+            loanDetail: updatedFormData.loanDetail,
+            country: updatedFormData.country,
+            product: updatedFormData.product,
         };
 
-        // Read the image file as a data URL
-        reader.readAsDataURL(imageFile);
-    } else {
-        // Create formData without image data
-        alert("img was not selected");  
+        if (updatedFormData.image) {
+            requestBody.image = updatedFormData.image;
+        }
+
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json', // Set Content-Type header for JSON
+            },
+        });
+
+        console.log('PUT Request Response:', response);
+
+        if (!response.ok) {
+            console.error('Failed to update SubProduct. Status:', response.status);
+            const responseBody = await response.json();
+            console.error('Response body:', responseBody);
+            throw new Error("Update failed");
+        }
+
+        alert("Update successful");
+    } catch (error) {
+        console.error('Error in updatesubProduct:', error);
+        alert("An unexpected error occurred during the update");
     }
 }
 
+// Helper function to convert base64 to Blob
+function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
 
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], { type: mimeString });
+}
+// Assuming you have a function to gather updated data from the form
+async function getUpdatedFormData() {
+    const formData = {
+        id: document.getElementById('id').value,
+        subProductName: document.getElementById('subProductName').value,
+        subProductNameAR: document.getElementById('subProductNameAR').value,
+        loanDetail: document.getElementById('loanDetail').value,
+        country: document.getElementById('country').value,
+        product: document.getElementById('product').value,
+        // Add any additional fields you need to update
+    };
+
+    const newImageFile = document.getElementById('file').files[0];
+
+    if (newImageFile) {
+        formData.image = await convertFileToBase64(newImageFile);
+    }
+
+    return formData;
+}
 
 function closeForm() {
     window.location.href = 'subProducts.html';

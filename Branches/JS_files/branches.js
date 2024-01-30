@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => console.error('Error fetching data:', error));
 
+
+    
+
     
   // Add event listeners after the editRow function is defined
   // Add event listener to the table, using event delegation
@@ -138,9 +141,28 @@ if (getBranchesButton) {
 
 });
 
+fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+})
+.then(countries => {
+    // Update the options in the select element
+    const countrySelect = document.getElementById('countrySlec');
+    countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country.countryName;
+        option.textContent = country.countryName;
+        countrySelect.appendChild(option);
+    });
+})
+.catch(error => console.error('Error fetching countries:', error));
+
 function fetchCities() {
   // Get the selected country
-  const selectedCountry = document.getElementById('country').value;
+  const selectedCountry = document.getElementById('countrySlec').value;
 
   // Make a POST request to the API
   fetch('https://arabbank.azurewebsites.net/api/city/filter', {
@@ -173,7 +195,7 @@ function fetchCities() {
 
 
 function fetchBranches() {
-  const selectedCountry = document.getElementById('country').value;
+  const selectedCountry = document.getElementById('countrySlec').value;
   const selectedCity = document.getElementById('city').value;
 
   const requestBody = {
