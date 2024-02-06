@@ -1,6 +1,8 @@
+// Fetching URL parameters
 var urlParams = new URLSearchParams(window.location.search);
 populateForm(urlParams.get('id'));
 
+// Populating form with data from API
 function populateForm(id) {
     console.log('Edit Row function called with ID:', id);
 
@@ -18,7 +20,6 @@ function populateForm(id) {
 
         if (subProduct) {
             const currentSubProductData = subProduct;
-
             setFormField('id', currentSubProductData.id);
             setFormField('subProductName', currentSubProductData.subProductName);
             setFormField('subProductNameAR', currentSubProductData.subProductNameAr);
@@ -34,6 +35,7 @@ function populateForm(id) {
     .catch(error => console.error('Error fetching subProduct data:', error));
 }
 
+// Setting form field values
 function setFormField(fieldId, value) {
     const element = document.getElementById(fieldId);
     if (element) {
@@ -43,6 +45,7 @@ function setFormField(fieldId, value) {
     }
 }
 
+// Displaying image in designated area
 function displayImageInArea(base64String) {
     console.log('Displaying image:', base64String);
 
@@ -55,9 +58,9 @@ function displayImageInArea(base64String) {
         // Create a new image element
         const img = document.createElement('img');
         img.src = base64String;
-        img.style.width = '100%';  // Ensure the image covers the entire area
+        img.style.width = '100%';
         img.style.height = '100%';
-        img.style.objectFit = 'cover';  // Maintain aspect ratio and cover the area
+        img.style.objectFit = 'cover';
 
         // Append the new image
         imgArea.appendChild(img);
@@ -68,6 +71,7 @@ function displayImageInArea(base64String) {
     }
 }
 
+// Handling file change event
 function handleFileChange(event) {
     console.log('File input changed.');
 
@@ -88,58 +92,60 @@ function handleFileChange(event) {
     }
 }
 
+// Getting updated form data
+async function getUpdatedFormData() {
+    const formData = {
+        id: document.getElementById('id').value,
+        subProductName: document.getElementById('subProductName').value,
+        subProductNameAR: document.getElementById('subProductNameAR').value,
+        loanDetail: document.getElementById('loanDetail').value,
+        country: document.getElementById('country').value,
+        product: document.getElementById('product').value,
+        // Add any additional fields you need to update
+    };
 
+    const newImageFile = document.getElementById('file').files[0];
 
-function convertFileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
+    if (newImageFile) {
+        formData.image = await convertFileToBase64(newImageFile);
+    } else {
+        // No new image selected, use the existing image value
+        const imgArea = document.querySelector('.img-area');
+        formData.image = imgArea.dataset.img;
+    }
 
-        reader.onload = function (event) {
-            let base64String = event.target.result;
-
-            // Ensure that the base64 string is in PNG format
-            base64String = base64String.replace(/^data:image\/(jpeg|jpg);base64,/, 'data:image/png;base64,');
-
-            console.log('Converted to base64:', base64String); // Log the base64 string
-
-            resolve(base64String);
-        };
-
-        reader.onerror = function (error) {
-            console.error('Error converting file to base64:', error); // Log any errors
-            reject(error);
-        };
-
-        reader.readAsDataURL(file);
-    });
+    return formData;
 }
 
+// Closing the form and redirecting
+function closeForm() {
+    window.location.href = 'subProducts.html';
+}
 
-const inputFile = document.querySelector('#file');
-const imgArea = document.querySelector('.img-area');
-const selectImage = document.querySelector('.select-image');
-
-// Prevent default form submission when selecting an image
-selectImage.addEventListener('click', function (event) {
-    event.preventDefault();
-    inputFile.click();
-});
-
-inputFile.addEventListener('change', handleFileChange);
-
-document.getElementById('updateButton').addEventListener('click', async function (event) {
-    event.preventDefault(); // Prevent default form submission
-    await handleUpdate();
-});
-
+// Updating SubProduct
 async function handleUpdate() {
     const subProductId = document.getElementById('id').value;
-    const updatedFormData = await getUpdatedFormData(); // Use 'await' to wait for the result
+    const updatedFormData = await getUpdatedFormData();
 
-    await updatesubProduct(subProductId, updatedFormData);
-    closeForm(); // Add this line to close the form
+    try {
+        const response = await updatesubProduct(subProductId, updatedFormData);
+
+        if (response.ok || response.status === 204) {
+            // Successful update or 204 status (No Content), close the form or perform any other necessary actions
+            closeForm();
+        } else {
+            // Unsuccessful update, show an alert with an appropriate message
+            console.error('Failed to update SubProduct. Status:', response.status);
+            const responseBody = await response.json();
+            console.error('Response body:', responseBody);
+            alert("Failed to update SubProduct. Please try again.");
+        }
+    } catch (error) {
+        console.error('Error in handleUpdate:', error);
+    }
 }
 
+// Updating SubProduct data via API
 async function updatesubProduct(subProductId, updatedFormData) {
     try {
         const apiUrl = `https://arabbank.azurewebsites.net/api/subProduct/${subProductId}`;
@@ -162,23 +168,25 @@ async function updatesubProduct(subProductId, updatedFormData) {
             method: 'PUT',
             body: JSON.stringify(requestBody),
             headers: {
-                'Content-Type': 'application/json', // Set Content-Type header for JSON
+                'Content-Type': 'application/json',
             },
         });
 
         console.log('PUT Request Response:', response);
 
-        if (!response.ok) {
+        if (!response.ok && response.status !== 204) {
             console.error('Failed to update SubProduct. Status:', response.status);
-            const responseBody = await response.json();
+            const responseBody = await response.text(); // Read response as text even if it's empty
             console.error('Response body:', responseBody);
             throw new Error("Update failed");
         }
 
-        alert("Update successful");
+        return response;
     } catch (error) {
         console.error('Error in updatesubProduct:', error);
-        alert("An unexpected error occurred during the update");
+        if (error.message !== "Update failed") {
+            throw error;
+        }
     }
 }
 
@@ -195,27 +203,35 @@ function dataURItoBlob(dataURI) {
 
     return new Blob([ab], { type: mimeString });
 }
-// Assuming you have a function to gather updated data from the form
-async function getUpdatedFormData() {
-    const formData = {
-        id: document.getElementById('id').value,
-        subProductName: document.getElementById('subProductName').value,
-        subProductNameAR: document.getElementById('subProductNameAR').value,
-        loanDetail: document.getElementById('loanDetail').value,
-        country: document.getElementById('country').value,
-        product: document.getElementById('product').value,
-        // Add any additional fields you need to update
-    };
 
-    const newImageFile = document.getElementById('file').files[0];
+// Handling file input click event
+const inputFile = document.querySelector('#file');
+const imgArea = document.querySelector('.img-area');
+const selectImage = document.querySelector('.select-image');
 
-    if (newImageFile) {
-        formData.image = await convertFileToBase64(newImageFile);
+// Prevent default form submission when selecting an image
+selectImage.addEventListener('click', function (event) {
+    event.preventDefault();
+    inputFile.click();
+});
+
+// Handling file input change event
+inputFile.addEventListener('change', handleFileChange);
+
+// Flag to prevent multiple updates in progress
+let isUpdateInProgress = false;
+
+// Handling update button click event
+document.getElementById('updateButton').addEventListener('click', async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    if (!isUpdateInProgress) {
+        isUpdateInProgress = true;
+
+        try {
+            await handleUpdate();
+        } finally {
+            isUpdateInProgress = false;
+        }
     }
-
-    return formData;
-}
-
-function closeForm() {
-    window.location.href = 'subProducts.html';
-}
+});

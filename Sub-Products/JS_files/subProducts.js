@@ -8,82 +8,6 @@ function base64ToImage(base64) {
 
 
 
-
-
-
-    // Function to convert base64 to an image element
-    
-
-    
-
-
-
-    // Function to handle the data in the subproduct
-    // async function fetchData() {
-    //     try {
-    //         // Fetch data from the API
-    //         const response = await fetch('https://arabbank.azurewebsites.net/api/subproduct');
-    //         const responseData = await response.json();
-    
-    //         // Check if the response contains the string "No Sub pro"
-    //         if (typeof responseData === 'string' && responseData.includes('No Sub pro')) {
-    //             console.warn('No sub-products available.');
-    //             return;
-    //         }
-    
-    //         // Get the selected country
-    //         const selectedCountry = document.getElementById('countrySlec').value;
-    
-    //         // Get the table body element
-    //         const tableBody = document.querySelector('#subProductTable');
-    //         console.log(tableBody);
-    
-    //         // Clear existing rows
-    //         tableBody.innerHTML = '';
-    
-    //         // Iterate through the data and create table rows based on the selected country
-    //         responseData.forEach(subProduct => {
-    //             if (!selectedCountry || subProduct.country === selectedCountry) {
-    //                 const row = tableBody.insertRow();
-    //                 row.innerHTML = `
-    //                     <td data-id="${subProduct.id}">${subProduct.id}</td>
-    //                     <td>${subProduct.subProductName}</td>
-    //                     <td>${subProduct.subProductNameAr}</td>
-    //                     <td>${subProduct.product}</td>
-    //                     <td></td> <!-- Placeholder for the image -->
-    //                     <td>${subProduct.loanDetail}</td>
-                        
-    //                     <td>
-    //                         <button type="button" id="editButton_${subProduct.id}" class="btn btn-outline-primary" data-subProduct-id="${subProduct.id}">
-    //                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
-    //                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-    //                                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-    //                             </svg>
-    //                         </button>
-    //                         <button type="button" id="deleteButton_${subProduct.id}" class="btn btn-outline-danger" data-subProduct-id="${subProduct.id}">
-    //                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-    //                                 <polyline points="3 6 5 6 21 6"></polyline>
-    //                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-    //                                 <line x1="10" y1="11" x2="10" y2="17"></line>
-    //                                 <line x1="14" y1="11" x2="14" y2="17"></line>
-    //                             </svg>
-    //                         </button>
-    //                     </td>
-    //                 `;
-    
-    //                 // Set the image cell content
-    //                 const imgCell = row.querySelector('td:nth-child(5)');
-    //                 imgCell.appendChild(base64ToImage(`${subProduct.image}`));
-    //             }
-    //         });
-    
-    //         // Add event listeners after the table is populated
-    //         addEventListeners();
-    
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     }
-    // }
     
 
 
@@ -103,7 +27,7 @@ function base64ToImage(base64) {
     
             if (clickedButton) {
                 const  clickedId = clickedButton.dataset.subproductId;
-                ;
+                
                 console.log('Clicked ID:', clickedId);
                 console.log('Clicked button:', clickedButton);
     
@@ -147,8 +71,9 @@ function base64ToImage(base64) {
     
     
     function redirectToUpdate(id) {
+        console.log('Redirecting to update with ID:', id);
         // Construct the new URL with the parameter
-        var newUrl = `./update_subproducts.html?id=${id}`;
+        var newUrl = `update_subProducts.html?id=${id}`;
     
         // Redirect to the new URL
         window.location.href = newUrl;

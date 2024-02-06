@@ -34,68 +34,46 @@
     </div>
   
     <!-- Leaflet Pages -->
-    <div class="form-group">
-      <label for="leafletPages">Leaflet Pages:</label>
-      <div class="leaflet-pages">
-        <!-- Pages 1 to 6 -->
-        <input type="file" id="leafletPage1" name="leafletPage1" accept="image/*" required onchange="previewImage(this);">
-        <img id="leafletPage1Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
+    <script>
+      for (let i = 1; i <= 6; i++) {
+        document.write(`
+          <div class="container">
+            <label for="leafletPage${i}AR">Leaflet ${i}:</label>
+            <input type="file" id="leafletPage${i}File" name="leafletPage${i}File" accept="image/*" hidden required>
+            <div class="img-area" data-img="">
+              <i class='bx bxs-cloud-upload icon'></i>
+              <h3>Upload Image</h3>
+              <p>Image size must be less than <span>2MB</span></p>
+            </div>
+            <button class="select-image" onclick="document.getElementById('leafletPage${i}File').click();">Select Image</button>
+          </div>
+        `);
+      }
+    </script>
   
-        <label for="leafletPage2">leaflet Page2</label>
-    <input type="file" id="leafletPage2" name="leafletPage2" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage2Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage3">leaflet Page3</label>
-    <input type="file" id="leafletPage3" name="leafletPage3" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage3Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage4">leaflet Page4</label>
-    <input type="file" id="leafletPage4" name="leafletPage4" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage4Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage5">leaflet Page5</label>
-    <input type="file" id="leafletPage5" name="leafletPage5" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage5Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage6">leaflet Page6</label>
-    <input type="file" id="leafletPage6" name="leafletPage6" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage6Preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-  
-      </div>
     </div>
   
     <!-- Leaflet Pages (AR) -->
     <div class="form-group">
       <label for="leafletPagesAR">Leaflet Pages (AR):</label>
       <div class="leaflet-pages-ar">
-        <!-- Pages 1AR to 6AR -->
-        <input type="file" id="leafletPage1AR" name="leafletPage1AR" accept="image/*" required onchange="previewImage(this);">
-        <img id="leafletPage1ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-
-        <label for="leafletPage2AR">leaflet Page2AR</label>
-    <input type="file" id="leafletPage2AR" name="leafletPage2AR" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage2ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage3AR">leaflet Page3AR</label>
-    <input type="file" id="leafletPage3AR" name="leafletPage3AR" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage3ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage4AR">leaflet Page4AR</label>
-    <input type="file" id="leafletPage4AR" name="leafletPage4AR" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage4ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage5AR">leaflet Page5AR</label>
-    <input type="file" id="leafletPage5AR" name="leafletPage5AR" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage5ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-
-    <label for="leafletPage6AR">leaflet Page6AR</label>
-    <input type="file" id="leafletPage6AR" name="leafletPage6AR" accept="image/*" required onchange="previewImage(this);">
-    <img id="leafletPage6ARPreview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-  
-        <!-- Repeat similar code for pages 2AR to 6AR -->
-        <!-- ... -->
-  
+        <script>
+          for (let i = 1; i <= 6; i++) {
+            document.write(`
+              <div class="container">
+                <label for="leafletPage${i}AR">Leaflet AR ${i}:</label>
+                <input type="file" id="leafletPage${i}AR" name="leafletPage${i}AR" accept="image/*" hidden required">
+                <div class="img-area" data-img="">
+                  <i class='bx bxs-cloud-upload icon'></i>
+                  <h3>Upload Image</h3>
+                  <p>Image size must be less than <span>2MB</span></p>
+                </div>
+                <button class="select-image" onclick="document.getElementById('leafletPage${i}AR').click();">Select Image</button>
+                
+              </div>
+            `);
+          }
+        </script>
       </div>
     </div>
 
@@ -107,11 +85,7 @@
     </div>
   </form>
   
-  <script>
   
-
-    </script>
-
     
   
   <script src="../Leaflet/JS_files/add_leaflet.js"></script>
