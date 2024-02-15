@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentCountryData;
 
   // Fetch data from the API
-  fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+  fetch('https://arabbanktest.azurewebsites.net/api/country')
     .then(response => response.json())
     .then(data => {
       // Update the table with fetched data
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function deleteRow(id) {
     // Make a DELETE request to the server to delete the corresponding data
-    fetch(`https://arabbank.azurewebsites.net/api/country?id=${id}`, {
+    fetch(`https://arabbanktest.azurewebsites.net/api/country?id=${id}`, {
       method: 'DELETE',
     })
       .then(response => {

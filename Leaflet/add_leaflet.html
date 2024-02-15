@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,17 +12,26 @@
 </head>
 <body id="bodystyle">
 
-  <h1>Add New sub-Product</h1>
+  
   
   
 
 
   <form id="leafletForm">
-    <!-- Product Information -->
+    <h1>Add New sub-Product</h1>
+
     <div class="form-group">
-      <label for="leafletProductName">Product Name:</label>
-      <input type="text" id="leafletProductName" name="leafletProductName" required>
+    
+    <label for="country">Country</label>
+<select id="country" name="country" required></select>
+</div>
+
+    <div class="form-group">
+      <label for="leafletProductName">leaflet Product Name</label>
+      <select id="leafletProductName" name="leafletProductName" required></select>
     </div>
+  
+    
   
     <div class="form-group">
       <label for="leafletSubProductName">Sub-poduct Name (AR):</label>
@@ -28,64 +39,154 @@
     </div>
   
     <!-- Country Input -->
-    <div class="form-group">
-      <label for="country">Country:</label>
-      <input type="text" id="country" name="country" required>
-    </div>
+    
   
     <!-- Leaflet Pages -->
-    <script>
-      for (let i = 1; i <= 6; i++) {
-        document.write(`
-          <div class="container">
-            <label for="leafletPage${i}AR">Leaflet ${i}:</label>
-            <input type="file" id="leafletPage${i}File" name="leafletPage${i}File" accept="image/*" hidden required>
-            <div class="img-area" data-img="">
-              <i class='bx bxs-cloud-upload icon'></i>
-              <h3>Upload Image</h3>
-              <p>Image size must be less than <span>2MB</span></p>
-            </div>
-            <button class="select-image" onclick="document.getElementById('leafletPage${i}File').click();">Select Image</button>
+    <div class=" leaflet-pages-container">
+        <div class="container">
+          <input type="file" class="file-input" name="leafletPage1" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
           </div>
-        `);
-      }
-    </script>
-  
+          <button class="select-image">Select Image</button>
+        </div>
+
+        <div class="container">
+          <input type="file" class="file-input" name="leafletPage2" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+        <div class="container">
+          <input type="file" class="file-input" name="leafletPage3" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+        <div class="container">
+          <input type="file" class="file-input" name="leafletPage4" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+        <div class="container" hidden>
+          <input type="file" class="file-input" name="leafletPage5" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+        <div class="container" hidden>
+          <input type="file" class="file-input" name="leafletPage6  " accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+      </div>
+    </div>
     </div>
   
     <!-- Leaflet Pages (AR) -->
-    <div class="form-group">
-      <label for="leafletPagesAR">Leaflet Pages (AR):</label>
-      <div class="leaflet-pages-ar">
-        <script>
-          for (let i = 1; i <= 6; i++) {
-            document.write(`
-              <div class="container">
-                <label for="leafletPage${i}AR">Leaflet AR ${i}:</label>
-                <input type="file" id="leafletPage${i}AR" name="leafletPage${i}AR" accept="image/*" hidden required">
-                <div class="img-area" data-img="">
-                  <i class='bx bxs-cloud-upload icon'></i>
-                  <h3>Upload Image</h3>
-                  <p>Image size must be less than <span>2MB</span></p>
-                </div>
-                <button class="select-image" onclick="document.getElementById('leafletPage${i}AR').click();">Select Image</button>
-                
-              </div>
-            `);
-          }
-        </script>
+    <div class=" leaflet-pages-ar-container">
+        <!-- Pages 1AR to 6AR -->
+        <div class="container">
+          <input type="file" class="file-input" name="leafletPage1AR" accept="image/*" hidden>
+          <div class="img-area" data-img="">
+            <i class='bx bxs-cloud-upload icon'></i>
+            <h3>Upload Image</h3>
+            <p>Select the Front Page For the Leaflet</p>
+          </div>
+          <button class="select-image">Select Image</button>
+        </div>
+
+
+      <div class="container">
+        <input type="file" class="file-input" name="leafletPage2AR" accept="image/*" hidden>
+        <div class="img-area" data-img="">
+          <i class='bx bxs-cloud-upload icon'></i>
+          <h3>Upload Image</h3>
+          <p>Select the Front Page For the Leaflet</p>
+        </div>
+        <button class="select-image">Select Image</button>
       </div>
-    </div>
+
+      <div class="container">
+        <input type="file" class="file-input" name="leafletPage3AR" accept="image/*" hidden>
+        <div class="img-area" data-img="">
+          <i class='bx bxs-cloud-upload icon'></i>
+          <h3>Upload Image</h3>
+          <p>Select the Front Page For the Leaflet</p>
+        </div>
+        <button class="select-image">Select Image</button>
+      </div>
+
+      <div class="container">
+        <input type="file" class="file-input" name="leafletPage4AR" accept="image/*" hidden>
+        <div class="img-area" data-img="">
+          <i class='bx bxs-cloud-upload icon'></i>
+          <h3>Upload Image</h3>
+          <p>Select the Front Page For the Leaflet</p>
+        </div>
+        <button class="select-image">Select Image</button>
+      </div>
+
+      <div class="container" hidden>
+        <input type="file" class="file-input" name="leafletPage5AR" accept="image/*" hidden>
+        <div class="img-area" data-img="">
+          <i class='bx bxs-cloud-upload icon'></i>
+          <h3>Upload Image</h3>
+          <p>Select the Front Page For the Leaflet</p>
+        </div>
+        <button class="select-image">Select Image</button>
+      </div>
+
+      <div class="container" hidden>
+        <input type="file" class="file-input" name="leafletPage6AR" accept="image/*" hidden>
+        <div class="img-area" data-img="">
+          <i class='bx bxs-cloud-upload icon'></i>
+          <h3>Upload Image</h3>
+          <p>Select the Front Page For the Leaflet</p>
+        </div>
+        <button class="select-image">Select Image</button>
+      </div>
+
+
+
+  
+      </div>
+  
 
   
     <!-- Form Buttons -->
-    <div class="d-grid gap-2" id="form-button">
-      <button class="btn btn-success btn-sm" type="button" onclick="submitForm()">Submit</button>
-      <button class="btn btn-danger btn-sm" type="button" onclick="closeForm()">Close</button>
+    <div class="gap-2"  id="form-button">
+      <button class="btn btn-success btn-lg" type="button" onclick="submitForm()">Submit</button>
+      <button class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
     </div>
   </form>
   
-  
+
+
     
   
   <script src="../Leaflet/JS_files/add_leaflet.js"></script>

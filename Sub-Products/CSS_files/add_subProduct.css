@@ -120,8 +120,8 @@ body {
 }
 
 form {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 700px;
+  margin: 50px auto;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
@@ -147,7 +147,11 @@ input[type="file"] {
 }
 
 #form-button {
-  text-align: center;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 3rem;
 }
 
 button {

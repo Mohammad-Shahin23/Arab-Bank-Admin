@@ -50,49 +50,24 @@ function displayImageInArea(base64String) {
     console.log('Displaying image:', base64String);
 
     const imgArea = document.querySelector('.img-area');
-    if (imgArea) {
-        // Remove existing images
-        const allImg = Array.from(imgArea.querySelectorAll('img'));
-        allImg.forEach(item => item.remove());
+    imgArea.innerHTML = ''; // Clear existing content
 
-        // Create a new image element
-        const img = document.createElement('img');
-        img.src = base64String;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
+    // Create a new image element
+    const img = document.createElement('img');
+    img.src = base64String;
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
 
-        // Append the new image
-        imgArea.appendChild(img);
-        imgArea.classList.add('active');
-        imgArea.dataset.img = base64String;
-    } else {
-        console.error('Error: Image area element not found.');
-    }
+    // Append the new image
+    imgArea.appendChild(img);
+    imgArea.classList.add('active');
+    imgArea.dataset.img = base64String;
 }
 
-// Handling file change event
-function handleFileChange(event) {
-    console.log('File input changed.');
 
-    const fileInput = event.target;
-    const file = fileInput.files[0];
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const base64String = event.target.result;
-            console.log('Converted to base64:', base64String);
-            displayImageInArea(base64String);
-        };
-        reader.onerror = function (error) {
-            console.error('Error reading file:', error);
-        };
-        reader.readAsDataURL(file);
-    }
-}
 
-// Getting updated form data
 async function getUpdatedFormData() {
     const formData = {
         id: document.getElementById('id').value,
@@ -104,10 +79,10 @@ async function getUpdatedFormData() {
         // Add any additional fields you need to update
     };
 
-    const newImageFile = document.getElementById('file').files[0];
+    const newImageFile = document.getElementById('file');
 
-    if (newImageFile) {
-        formData.image = await convertFileToBase64(newImageFile);
+    if (newImageFile && newImageFile.files && newImageFile.files.length > 0) {
+        formData.image = await handleFileChange(newImageFile.files[0]);
     } else {
         // No new image selected, use the existing image value
         const imgArea = document.querySelector('.img-area');
@@ -116,6 +91,36 @@ async function getUpdatedFormData() {
 
     return formData;
 }
+
+function handleFileChange(file) {
+    console.log('File input changed.');
+
+    return new Promise((resolve, reject) => {
+        if (file) {
+            console.log('Selected file type:', file.type);
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const base64String = event.target.result; // Keep the full data URI
+                    console.log('Base64 string:', base64String);
+                    displayImageInArea(base64String); // Display the image immediately
+                    resolve(base64String);
+                };
+                reader.onerror = function (error) {
+                    console.error('Error reading file:', error);
+                    reject(error);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                reject(new Error('Invalid file type. Please select an image file.'));
+            }
+        } else {
+            reject(new Error('No file selected'));
+        }
+    });
+}
+
 
 // Closing the form and redirecting
 function closeForm() {
@@ -146,6 +151,8 @@ async function handleUpdate() {
 }
 
 // Updating SubProduct data via API
+// Updating SubProduct data via API
+// Updating SubProduct data via API
 async function updatesubProduct(subProductId, updatedFormData) {
     try {
         const apiUrl = `https://arabbank.azurewebsites.net/api/subProduct/${subProductId}`;
@@ -158,11 +165,9 @@ async function updatesubProduct(subProductId, updatedFormData) {
             loanDetail: updatedFormData.loanDetail,
             country: updatedFormData.country,
             product: updatedFormData.product,
+            image: updatedFormData.image, // Directly include the base64 image string
         };
-
-        if (updatedFormData.image) {
-            requestBody.image = updatedFormData.image;
-        }
+        console.log('PUT image:', requestBody.image);
 
         const response = await fetch(apiUrl, {
             method: 'PUT',
@@ -176,10 +181,11 @@ async function updatesubProduct(subProductId, updatedFormData) {
 
         if (!response.ok && response.status !== 204) {
             console.error('Failed to update SubProduct. Status:', response.status);
-            const responseBody = await response.text(); // Read response as text even if it's empty
+            const responseBody = await response.text();
             console.error('Response body:', responseBody);
             throw new Error("Update failed");
         }
+        alert("SubProduct updated successfully");
 
         return response;
     } catch (error) {
@@ -190,19 +196,7 @@ async function updatesubProduct(subProductId, updatedFormData) {
     }
 }
 
-// Helper function to convert base64 to Blob
-function dataURItoBlob(dataURI) {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
 
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ab], { type: mimeString });
-}
 
 // Handling file input click event
 const inputFile = document.querySelector('#file');
@@ -216,7 +210,9 @@ selectImage.addEventListener('click', function (event) {
 });
 
 // Handling file input change event
-inputFile.addEventListener('change', handleFileChange);
+inputFile.addEventListener('change', function (event) {
+    handleFileChange(event.target.files[0]);
+});
 
 // Flag to prevent multiple updates in progress
 let isUpdateInProgress = false;

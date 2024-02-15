@@ -9,40 +9,62 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
   <title>Update a Country</title>
-
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>Update a Country</h1>
+ 
   <form id="updateCountryForm" >
+
+    <h1>Update a Country</h1>
+    
     <label for="countryId" style="display: none;">Country ID:</label>
     <input type="text" id="countryId" name="countryId" style="display: none;" required>
 
-    <label for="countryName">Country Name:</label>
-    <input type="text" id="countryName" name="countryName" required>
+    
+      <label for="countryName">Country Name:</label>
+      <input type="text" id="countryName" name="countryName" required>
+      <span id="errorCountryName" class="error-message"></span>
+    <br>
+  
+      <label for="countryNameAR">Country Name (AR):</label>
+      <input type="text" id="countryNameAR" name="countryNameAR" required>
+      <span id="errorCountryNameAR" class="error-message"></span>
+      <br>
+  
+      <label for="countryCode">Country Code:</label>
+      <input type="text" id="countryCode" name="countryCode" required>
+      <span id="errorCountryCode" class="error-message"></span>
+      <br>
+  
+      <label for="mobileCode">Mobile Code:</label>
+      <input type="text" id="mobileCode" name="mobileCode" required>
+      <span id="errorMobileCode" class="error-message"></span>
+      <br>
+  
+      <label for="countryMobileHint">Mobile Hint:</label>
+      <input type="text" id="countryMobileHint" name="countryMobileHint" required>
+      <span id="errorCountryMobileHint" class="error-message"></span>
+      <br>
+  
+      <label for="countryCurrencyCode">Currency Code:</label>
+      <input type="text" id="countryCurrencyCode" name="countryCurrencyCode" required>
+      <span id="errorCountryCurrencyCode" class="error-message"></span>
+      <br>
+  
+      <label for="countryCurrencyCodeAr">Currency Code (AR):</label>
+      <input type="text" id="countryCurrencyCodeAr" name="countryCurrencyCodeAr" required>
+      <span id="errorCountryCurrencyCodeAr" class="error-message"></span>
+      <br>
 
-    <label for="countryNameAR">Country Name (AR):</label>
-    <input type="text" id="countryNameAR" name="countryNameAR" required>
-
-    <label for="countryCode">Country Code:</label>
-    <input type="text" id="countryCode" name="countryCode" required>
-
-    <label for="mobileCode">Mobile Code:</label>
-    <input type="text" id="mobileCode" name="mobileCode" required>
-
-    <label for="countryMobileHint">Mobile Hint:</label>
-    <input type="text" id="countryMobileHint" name="countryMobileHint" required>
-
-    <label for="countryCurrencyCode">Currency Code:</label>
-    <input type="text" id="countryCurrencyCode" name="countryCurrencyCode" required>
-
-    <label for="countryCurrencyCodeAr">Currency Code (AR):</label>
-    <input type="text" id="countryCurrencyCodeAr" name="countryCurrencyCodeAr" required>
-
-    <div class="d-grid gap-2" id="form-button">
-      <button id="updateButton" class="btn btn-success" type="button" onclick="updateCountry(document.getElementById('countryId').value)">Update</button>
-      <button id="closeButton" class="btn btn-danger" type="button" onclick="closeForm()">Close</button>
+    <div class="gap-2"   id="form-button">
+      <button  class="btn btn-success btn-lg" type="button" onclick="updateCountry(document.getElementById('countryId').value)">Update</button>
+      <button  class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
     </div>
   </form>
 

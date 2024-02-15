@@ -2,9 +2,74 @@ var urlParams = new URLSearchParams(window.location.search);
  populateForm(urlParams.get('id'))
 
 
+
+ var countryNameInput = document.getElementById('countryName');
+ var countryCodeInput = document.getElementById('countryCode');
+ var countryNameARInput = document.getElementById('countryNameAR');
+ var mobileCodeInput = document.getElementById('mobileCode');
+ var countryCurrencyCodeInput = document.getElementById('countryCurrencyCode');
+ var countryCurrencyCodeArInput = document.getElementById('countryCurrencyCodeAr');
+ var countryMobileHintInput = document.getElementById('countryMobileHint');
+ // Validate Country Name while typing
+ countryNameInput.addEventListener('input', function () {
+   validateInput(countryNameInput, /^[A-Z][a-zA-Z\s]*$/, 'errorCountryName', 'Country name should start with a capital letter and contain no numbers.');
+ });
+ 
+ // Validate Country Name (AR) while typing
+ countryNameARInput.addEventListener('input', function () {
+   validateInput(countryNameARInput, /^[ء-ي\s]*$/, 'errorCountryNameAR', 'Country name (AR) should contain only Arabic letters and no numbers or special characters.');
+ });
+ 
+ // Validate Country Code while typing
+ countryCodeInput.addEventListener('input', function () {
+   validateInput(countryCodeInput, /^[A-Z\s]*$/, 'errorCountryCode', 'Country code should contain only capital letters and no numbers.');
+ });
+ 
+ // Validate Mobile Code while typing
+ mobileCodeInput.addEventListener('input', function () {
+   validateInput(mobileCodeInput, /^00\d+$/, 'errorMobileCode', 'Mobile code should contain only numbers and start with "00".');
+ });
+
+ countryMobileHintInput.addEventListener('input', function () {
+    validateInput(countryMobileHintInput, /^.+$/, 'errorCountryMobileHint', 'Mobile Hint should not be empty.');
+  });
+ 
+ // Validate Currency Code while typing
+ countryCurrencyCodeInput.addEventListener('input', function () {
+   validateInput(countryCurrencyCodeInput, /^[A-Z\s]+$/, 'errorCountryCurrencyCode', 'Currency code should contain only capital letters.');
+ });
+ 
+ // Validate Currency Code (AR) while typing
+ countryCurrencyCodeArInput.addEventListener('input', function () {
+   validateInput(countryCurrencyCodeArInput, /^[ء-ي\s]*$/, 'errorCountryCurrencyCodeAr', 'Currency code (AR) should contain only Arabic letters and no numbers.');
+ });
+ 
+ // Additional functions and code as needed
+ 
+ function validateInput(inputElement, regex, errorElementId, errorMessage) {
+   // Check if the input is empty
+   if (inputElement.value.trim() === '') {
+     // Display an error message for empty input
+     document.getElementById(errorElementId).innerHTML = 'This field is required.';
+     return false;
+   }
+ 
+   // Check if the input matches the provided regex
+   if (!regex.test(inputElement.value)) {
+     // Display an error message
+     document.getElementById(errorElementId).innerHTML = errorMessage;
+     return false;
+   } else {
+     // Clear the error message
+     document.getElementById(errorElementId).innerHTML = '';
+     return true;
+   }
+ }
+ 
+
 function populateForm(id) {
     console.log('Edit Row function called with ID:', id);
-    fetch(`https://arabbank.azurewebsites.net/api/country/getCountryById?countryid=${id}`, {
+    fetch(`https://arabbanktest.azurewebsites.net/api/country/getCountryById?countryid=${id}`, {
       method: 'GET'
     })
       .then(response => response.json())
@@ -38,51 +103,6 @@ function populateForm(id) {
       .catch(error => console.error('Error fetching country data:', error));
   }
 
-//   function updateCountry(id) {
-//     console.log(id);
-
-//     // Fetch the updated data from the form
-//     const updatedData = {
-//         countryId: document.getElementById('countryId').value,
-//         countryName: document.getElementById('countryName').value,
-//         countryNameAR: document.getElementById('countryNameAR').value,
-//         countryCode: document.getElementById('countryCode').value,
-//         mobileCode: document.getElementById('mobileCode').value,
-//         countryMobileHint: document.getElementById('countryMobileHint').value,
-//         countryCurrencyCode: document.getElementById('countryCurrencyCode').value,
-//         countryCurrencyCodeAr: document.getElementById('countryCurrencyCodeAr').value,
-//     };
-
-//     // Create a simplified payload with only the countryId
-//     const simplifiedData = {
-//         countryId: updatedData.countryId,
-//     };
-  
-//     // Make a PUT request to update the country data with the simplified payload
-//     fetch(`https://arabbank.azurewebsites.net/api/CountrY/${simplifiedData.countryId}`, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(simplifiedData),
-//     })
-//     .then(response => {
-//         // Log the entire response for more details
-//         console.log('Response:', response);
-
-//         if (response && response.ok) {
-//             // If the server-side update is successful, close the form
-//             closeForm();
-//         } else {
-//             // Log the response text for more details
-//             response.text().then(text => console.error('Response Text:', text));
-//             // Handle errors here if needed
-//             console.error('Error updating data:', response.status);
-//         }
-//     })
-//     .catch(error => console.error('Error updating data:', error));
-// }
-
 
   function closeForm() {
     window.location.href = 'countries.html';
@@ -91,7 +111,24 @@ function populateForm(id) {
 
 
   function updateCountry(id) {
+
+     // Validate all inputs before updating the country
+        var isFormValid =
+        validateInput(countryNameInput, /^[A-Z][a-zA-Z\s]*$/, 'errorCountryName', 'Country name should start with a capital letter and contain no numbers.') &&
+        validateInput(countryNameARInput, /^[ء-ي\s]*$/, 'errorCountryNameAR', 'Country name (AR) should contain only Arabic letters and no numbers or special characters.') &&
+        validateInput(countryCodeInput, /^[A-Z\s]*$/, 'errorCountryCode', 'Country code should contain only capital letters and no numbers.') &&
+        validateInput(mobileCodeInput, /^00\d+$/, 'errorMobileCode', 'Mobile code should contain only numbers and start with "00".') &&
+        validateInput(countryMobileHintInput, /^.+$/, 'errorCountryMobileHint', 'Mobile Hint should not be empty.') &&
+        validateInput(countryCurrencyCodeInput, /^[A-Z\s]+$/, 'errorCountryCurrencyCode', 'Currency code should contain only capital letters.') &&
+        validateInput(countryCurrencyCodeArInput, /^[ء-ي\s]*$/, 'errorCountryCurrencyCodeAr', 'Currency code (AR) should contain only Arabic letters and no numbers.');
+
+        // If any validation fails, do not update the country
+        if (!isFormValid) {
+        return;
+        }
+            
     console.log('Updating country with ID:', id);
+
 
     // Fetch the updated data from the form
     const newData = {
@@ -107,7 +144,7 @@ function populateForm(id) {
 
     console.log('New Data:', newData);
 
-    const url = `https://arabbank.azurewebsites.net/api/CountrY/${id}`;
+    const url = `https://arabbanktest.azurewebsites.net/api/country/${id}`;
 
     fetch(url, {
         method: 'PUT',
@@ -124,7 +161,7 @@ function populateForm(id) {
     })
     .then(data => {
         console.log('Updated data:', data);
-        alert('Country data updated successfully!');
+        
         window.location.href = 'countries.html';
     })
     .catch(error => {

@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
                 // Create a new cell for each base64 image
                 const base64ImageCells = [
-                    'leafletPage1','leafletPage2', 'leafletPage3', 'leafletPage4', 'leafletPage5', 'leafletPage6',
-                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR', 'leafletPage4AR', 'leafletPage5AR', 'leafletPage6AR'
+                    'leafletPage1','leafletPage2', 'leafletPage3', 'leafletPage4',  
+                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR',
                 ];
         
                 base64ImageCells.forEach(propertyName => {
@@ -332,8 +332,8 @@ async function filterLeaflet() {
         
                 // Create a new cell for each base64 image
                 const base64ImageCells = [
-                    'leafletPage1','leafletPage2', 'leafletPage3', 'leafletPage4', 'leafletPage5', 'leafletPage6',
-                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR', 'leafletPage4AR', 'leafletPage5AR', 'leafletPage6AR'
+                    'leafletPage1','leafletPage2', 'leafletPage3',
+                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR',
                 ];
         
                 base64ImageCells.forEach(propertyName => {

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
 	--blue: #0071FF;
 	--light-blue: #B6DBF6;
@@ -7,26 +8,30 @@
 }
 
 
-body {
+#bodystyle {
+	font-family: 'Arial', sans-serif;
 	display: flex;
   flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: var(--light-blue);
 	
 	
 }
 
 #leafletForm {
-  max-width: 100rem;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80rem;
+    margin: 50px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -42,37 +47,20 @@ input[type="text"] {
   margin-bottom: 10px;
 }
 
-.leaflet-pages label {
-  display: block;
-  margin-bottom: 5px;
-}
 
 
 
 
 
 #form-button {
-  text-align: center;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 3rem;
 }
 
-button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
 
-#updateButton {
-  background-color: #28a745;
-  color: #fff;
-}
-
-#closeButton {
-  background-color: #dc3545;
-  color: #fff;
-}
 
 
 
@@ -90,16 +78,19 @@ button {
 
 
 .container {
-	max-width: 600px;
-	width: 100%;
-	background: #fff;
-	padding: 30px;
-	border-radius: 30px;
+	display: flex;
+    background: #fff;
+    padding: 30px;
+    border-radius: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .img-area {
 	position: relative;
-	width: 100%;
-	height: 240px;
+	
+	height: 550px;
 	background: var(--grey);
 	margin-bottom: 30px;
 	border-radius: 15px;
@@ -157,7 +148,7 @@ button {
 }
 .select-image {
 	display: block;
-	width: 100%;
+	width: 85%;
 	padding: 16px 0;
 	border-radius: 15px;
 	background: var(--blue);
@@ -170,4 +161,46 @@ button {
 }
 .select-image:hover {
 	background: var(--dark-blue);
+}
+
+select {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #fff;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+  }
+  
+  select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	pointer-events: none;
+  }
+  
+  select:focus {
+	outline: none;
+	border-color: var(--blue);
+	box-shadow: 0 0 5px rgba(0, 113, 255, 0.5);
+  }
+  
+  select option {
+	padding: 10px;
+	background-color: #fff;
+  }
+
+  .leaflet-pages-container {
+    display: flex;
+}
+
+.leaflet-pages-ar-container {
+    display: flex;
 }
