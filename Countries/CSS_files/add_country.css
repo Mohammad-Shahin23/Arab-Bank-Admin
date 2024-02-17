@@ -1,7 +1,16 @@
-body {
+:root {
+	--blue: #0071FF;
+	--light-blue: #B6DBF6;
+	--dark-blue: #005DD1;
+	--grey: #f2f2f2;
+}
+
+
+
+#bodystyle {
   font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  margin: 20px;
+  background-color: var(--light-blue);
+  
 }
 
 h1 {
@@ -11,7 +20,7 @@ h1 {
 
 form {
   max-width: 600px;
-  margin: 99px auto;
+  margin: 96px auto;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;

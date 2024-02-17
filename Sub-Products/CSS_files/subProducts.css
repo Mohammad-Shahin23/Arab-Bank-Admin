@@ -15,17 +15,13 @@
   flex-wrap: nowrap;
   margin-bottom: 50px;
 }
-select#productSlec {
-  width: 250px;
-  
-  
-  color: gray; /* Set the color to gray */
-}
+
 
 * {
   box-sizing: border-box;
 }
 .select {
+  
   position: relative;
   min-width: 200px;
 }
@@ -88,10 +84,17 @@ select#productSlec {
 }
 
 #countrySlec {
+  width:16rem;
   padding-right: 100px; /* Adjust the padding to your preference */
   color: gray; /* Set the color to gray */
 }
 
+#productSlec{
+  width: 16rem;
+  padding-right: 100px; /* Adjust the padding to your preference */
+  color: gray; /* Set the color to gray */
+
+}
 .select-wrapper::after {
   content: '';
   position: absolute;
@@ -170,3 +173,4 @@ font-family: 'PTSans-Regular'; /* Set the desired font family for h2 in .style-t
 font-weight: bold; /* Set the desired font weight for h2 in .style-table */
 /* Add any other text styles as needed */
 }
+

@@ -1,6 +1,8 @@
 // Variable to store the current country data
 document.addEventListener('DOMContentLoaded', function () {
-  let currentCountryData;
+  // Display the loader while the page is loading
+  const loader = document.getElementById('loader');
+  loader.style.display = 'block';
 
   // Fetch data from the API
   fetch('https://arabbanktest.azurewebsites.net/api/country')
@@ -8,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(data => {
       // Update the table with fetched data
       const tableBody = document.querySelector('#countryTable');
-
       console.log('Table Body:', tableBody);
       console.log('Fetched Data:', data);
       
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </td>
         `;
       });
-
+      loader.style.display = 'none';
     })
     .catch(error => console.error('Error fetching data:', error));
 
@@ -94,25 +95,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   function deleteRow(id) {
-    // Make a DELETE request to the server to delete the corresponding data
-    fetch(`https://arabbanktest.azurewebsites.net/api/country?id=${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (response.ok) {
-          // If the server-side deletion is successful, remove the row from the DOM
-          const row = document.querySelector(`#countryTable td[data-id="${id}"]`);
-          if (row) {
-            row.parentElement.remove(); // Remove the entire row
-            console.log("Deleted successfully");
-          } else {
-            console.error('Row not found in the DOM');
-          }
-        } else {
-          // Handle errors here if needed
-          console.error('Error deleting data:', response.status);
-        }
+    // Display a confirmation dialog
+    const isConfirmed = window.confirm("Are you sure you want to delete this country?");
+  
+    if (isConfirmed) {
+      // If the user confirms, make a DELETE request to the server to delete the corresponding data
+      fetch(`https://arabbanktest.azurewebsites.net/api/country?id=${id}`, {
+        method: 'DELETE',
       })
-      .catch(error => console.error('Error deleting data:', error));
+        .then(response => {
+          if (response.ok) {
+            // If the server-side deletion is successful, remove the row from the DOM
+            const row = document.querySelector(`#countryTable td[data-id="${id}"]`);
+            if (row) {
+              row.parentElement.remove(); // Remove the entire row
+              console.log("Deleted successfully");
+            } else {
+              console.error('Row not found in the DOM');
+            }
+          } else {
+            // Handle errors here if needed
+            console.error('Error deleting data:', response.status);
+          }
+        })
+        .catch(error => console.error('Error deleting data:', error));
+    }
   }
+  
 });

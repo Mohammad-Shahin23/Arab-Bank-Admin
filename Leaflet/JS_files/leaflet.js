@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
    async function fetchData() {
     try {
         // Fetch data from the API
-        const response = await fetch('https://arabbank.azurewebsites.net/api/leaflet');
+        const response = await fetch('https://arabbanktest.azurewebsites.net/api/leaflet');
         const data = await response.json();
 
         // Get the selected country
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Create a new cell for each base64 image
                 const base64ImageCells = [
                     'leafletPage1','leafletPage2', 'leafletPage3', 'leafletPage4',  
-                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR',
+                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR', 'leafletPage4AR'
                 ];
         
                 base64ImageCells.forEach(propertyName => {
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function deleteleaflet(id) {
         // Make a DELETE request to the server to delete the corresponding data
-        fetch(`https://arabbank.azurewebsites.net/api/leaflet/${id}`, {
+        fetch(`https://arabbanktest.azurewebsites.net/api/leaflet/${id}`, {
             method: 'DELETE',
         })
             .then(response => {
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+fetch('https://arabbanktest.azurewebsites.net/api/COUNTRY')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -194,7 +194,7 @@ function fetchProducts() {
     const selectedCountry = document.getElementById('countrySlec').value;
   
     // Make a POST request to the API
-    fetch('https://arabbank.azurewebsites.net/api/Product/GetProductByCountry', {
+    fetch('https://arabbanktest.azurewebsites.net/api/Product/GetProductByCountry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -240,7 +240,7 @@ function fetchSubProducts() {
     };
   
     // Make a POST request to the API
-    fetch('https://arabbank.azurewebsites.net/api/subproduct/getSubproductByCountryAndProduct', {
+    fetch('https://arabbanktest.azurewebsites.net/api/subproduct/getSubproductByCountryAndProduct', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -296,7 +296,7 @@ async function filterLeaflet() {
     };
 
     try {
-        const response = await fetch('https://arabbank.azurewebsites.net/api/leaflet/getLeafletbysubproduct', {
+        const response = await fetch('https://arabbanktest.azurewebsites.net/api/leaflet/getLeafletbysubproduct', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -332,8 +332,8 @@ async function filterLeaflet() {
         
                 // Create a new cell for each base64 image
                 const base64ImageCells = [
-                    'leafletPage1','leafletPage2', 'leafletPage3',
-                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR',
+                    'leafletPage1','leafletPage2', 'leafletPage3', 'leafletPage4',  
+                    'leafletPage1AR', 'leafletPage2AR', 'leafletPage3AR', 'leafletPage4AR'
                 ];
         
                 base64ImageCells.forEach(propertyName => {

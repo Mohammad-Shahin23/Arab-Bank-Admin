@@ -1,4 +1,3 @@
-
 const selectImage = document.querySelector('.select-image');
 const inputFile = document.querySelector('#file');
 const imgArea = document.querySelector('.img-area');
@@ -30,7 +29,7 @@ inputFile.addEventListener('change', function (event) {
     return false;
 });
 
-fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+fetch('https://arabbanktest.azurewebsites.net/api/COUNTRY')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -46,33 +45,26 @@ fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
             option.textContent = country.countryName;
             countrySelect.appendChild(option);
             if (index === 0) {
-                // Assuming you have a function named filterProducts to handle the product selection logic
+                // Assuming you have a function named fetchProducts to handle the product selection logic
                 fetchProducts();
             }
-            
         });
     })
     .catch(error => console.error('Error fetching countries:', error));
 
+const countryDropdown = document.getElementById('country');
 
+// Add an event listener for the "change" event
+countryDropdown.addEventListener('change', function () {
+    fetchProducts();
+});
 
+function fetchProducts() {
+    // Get the selected country
+    const selectedCountry = document.getElementById('country').value;
 
-
-    const countryDropdown = document.getElementById('country');
-
-    // Add an event listener for the "change" event
-    countryDropdown.addEventListener('change', function () {
-        fetchProducts();
-    });
-
-
-
-    function fetchProducts() {
-        // Get the selected country
-        const selectedCountry = document.getElementById('country').value;
-    
-        // Make a POST request to the API
-        fetch('https://arabbank.azurewebsites.net/api/Product/GetProductByCountry', {
+    // Make a POST request to the API
+    fetch('https://arabbanktest.azurewebsites.net/api/Product/GetProductByCountry', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -83,66 +75,45 @@ fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
         .then(data => {
             console.log('Received data from the server:', data);
 
-    
-                // Update the product dropdown with the new data
-                const productDropdown = document.getElementById('product');
-                productDropdown.innerHTML = ''; // Clear existing options
-    
-                data.forEach((product) => {
-                    console.log('Adding product:', product.productName);
-                    const option = document.createElement('option');
-                    option.value = product.productName;
-                    option.textContent = product.productName;
-                    productDropdown.appendChild(option);
-    
-                    // If it's the first product, you can trigger additional actions if needed
-                   
-                });
-            })
-            .catch(error => console.error('Error fetching products:', error));
-    }
+            // Update the product dropdown with the new data
+            const productDropdown = document.getElementById('product');
+            productDropdown.innerHTML = ''; // Clear existing options
 
-    let isSubmitting = false;
+            data.forEach((product) => {
+                console.log('Adding product:', product.productName);
+                const option = document.createElement('option');
+                option.value = product.productName;
+                option.textContent = product.productName;
+                productDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching products:', error));
+}
+
+let isSubmitting = false;
 
 function submitForm(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    // Check if the form is already being submitted
-    if (isSubmitting) {
-        console.log('Form is already being submitted. Ignoring.');
-        return;
-    }
-
-    // Set the flag to indicate that form submission is in progress
-    isSubmitting = true;
-
-    // Get the form data
-    const subProductName = document.getElementById('subProductName').value;
-    const subProductNameAR = document.getElementById('subProductNameAR').value;
-    const loanDetail = document.getElementById('loanDetail').value;
-    const country = document.getElementById('country').value;
-    const product = document.getElementById('product').value;
+    // Check if the file is selected
     const fileInput = document.getElementById('file');
-
-    // Check if a file is selected
     if (fileInput.files.length === 0) {
         console.error('No file selected');
-        isSubmitting = false; // Reset the flag
         return;
     }
 
+    // Check if a file is selected
     const imageData = fileInput.files[0];
 
     // Check if the file is a valid Blob
     if (!(imageData instanceof Blob)) {
         console.error('Invalid file type');
-        isSubmitting = false; // Reset the flag
         return;
     }
 
     // Convert image data to base64
     const reader = new FileReader();
-    reader.onloadend = function() {
+    reader.onloadend = function () {
         const base64Image = reader.result.split(',')[1]; // Extract base64 string (remove data:image/png;base64,)
 
         // Add the data URI prefix if not present
@@ -151,11 +122,11 @@ function submitForm(event) {
         // Create the formData object
         const formData = {
             "id": 0, // Replace with the appropriate value if needed
-            "subProductName": subProductName,
-            "subProductNameAr": subProductNameAR,
-            "loanDetail": loanDetail,
-            "country": country,
-            "product": product,
+            "subProductName": document.getElementById('subProductName').value,
+            "subProductNameAr": document.getElementById('subProductNameAR').value,
+            "loanDetail": document.getElementById('loanDetail').value,
+            "country": document.getElementById('country').value,
+            "product": document.getElementById('product').value,
             "image": imageDataUri
         };
 
@@ -163,36 +134,33 @@ function submitForm(event) {
         console.log('Sending data:', formData);
 
         // Make a POST request to the API
-        fetch('https://arabbank.azurewebsites.net/api/subProduct', {
+        fetch('https://arabbanktest.azurewebsites.net/api/subProduct', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle the successful response
-            console.log('Received data from the server:', data);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response
+                console.log('Received data from the server:', data);
 
-            // You can add additional logic here if needed
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error submitting form:', error);
-        })
-        .finally(() => {
-            // Reset the flag after form submission is complete
-            isSubmitting = false;
-            
-            // Close the form after submission
-            closeForm();
-        });
+                // You can add additional logic here if needed
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error submitting form:', error);
+            })
+            .finally(() => {
+                // Close the form after submission
+                closeForm();
+            });
     };
 
     // Read the image file as base64
@@ -203,7 +171,6 @@ function submitForm(event) {
 const subProductForm = document.getElementById('subProductForm');
 subProductForm.addEventListener('submit', submitForm);
 
-
-    function closeForm() {
-          window.location.href = 'subProducts.html';
-     }
+function closeForm() {
+    window.location.href = 'subProducts.html';
+}

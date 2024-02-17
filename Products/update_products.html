@@ -12,25 +12,35 @@
 
 </head>
 
-<body>
+<body id="bodyStyle">
 
-  <h1>Update a product</h1>
+  
   <form id="updateproductForm" >
+    <h1>Update a product</h1>
     <label for="productId" style="display: none;">product ID:</label>
     <input type="text" id="productId" name="productId" style="display: none;" required>
 
-    <label for="productName">product Name:</label>
-    <input type="text" id="productName" name="productName" required>
-
-    <label for="productNameAR">product Name (AR):</label>
-    <input type="text" id="productNameAR" name="productNameAR" required>
-
-    <label for="country">country:</label>
-    <input type="text" id="country" name="country" required>
-
+    <div class="mb-3">
+      <label for="country" class="form-label">Country:</label>
+      <select id="country" name="country" class="form-select" required></select>
+      <div id="errorCountry" class="error"></div> 
+  </div>
+  
+      
+      <div class="mb-3">
+        <label for="productName" class="form-label">product Name:</label>
+        <input type="text" id="productName" name="productName" class="form-control" required>
+        <div id="errorProductName" class="error"></div> 
+    </div>
+  
+    <div class="mb-3">
+        <label for="productNameAR" class="form-label">City Name (AR):</label>
+        <input type="text" id="productNameAR" name="productNameAR" class="form-control" required>
+        <div id="errorProductNameAR" class="error"></div> 
+    </div>
 
     <div class="gap-2"   id="form-button">
-      <button  class="btn btn-success btn-lg" type="button" onclick="updateleaflet(document.getElementById('leafletId').value)">Update</button>
+      <button  class="btn btn-success btn-lg" type="button" onclick="updateProduct(document.getElementById('productId').value)">Update</button>
       <button  class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
     </div>
   </form>

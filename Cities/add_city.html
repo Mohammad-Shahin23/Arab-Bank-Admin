@@ -5,32 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./CSS_files/add_city.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <title>Add New city</title>
-
+  <title>Add New City</title>
 </head>
-<body id="bodystyle">
+<body id="bodyStyle">
 
-  <h1>Add New city</h1>
+<form id="cityForm">
+    <h1>Add New City</h1>
+
   
-  <form id="cityForm" >
-    <label for="cityName">City Name:</label>
-    <input type="text" id="cityName" name="cityName" required>
+    <div class="mb-3">
+      <label for="country" class="form-label">Country:</label>
+      <select id="country" name="country" class="form-select" required></select>
+      <div id="errorCountry" class="error"></div> 
+  </div>
 
-    <label for="cityNameAR">City Name (AR):</label>
-    <input type="text" id="cityNameAR" name="cityNameAR" required>
+    <div class="mb-3">
+        <label for="cityName" class="form-label">City Name:</label>
+        <input type="text" id="cityName" name="cityName" class="form-control" required>
+        <div id="errorCityName" class="error"></div> 
+    </div>
 
-    <label for="country">Country:</label>
-    <input type="text" id="country" name="country" required>
+    <div class="mb-3">
+        <label for="cityNameAR" class="form-label">City Name (AR):</label>
+        <input type="text" id="cityNameAR" name="cityNameAR" class="form-control" required>
+        <div id="errorCityNameAR" class="error"></div> 
+    </div>
 
-    <div class="gap-2"  id="form-button">
+
+    <div class="gap-2" id="form-button">
       <button class="btn btn-success btn-lg" type="button" onclick="submitForm()">Submit</button>
       <button class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
     </div>
-  </form>
+</form>
 
-  
+<script src="../Cities/JS_files/add_city.js"> </script>
 
-  <script src="../Cities/JS_files/add_city.js"> </script>
+
 
 </body>
 </html>

@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  let currentbranchData;
+  let currentBranchData;
 
-  // Add event listeners after the editRow function is defined
-  // Add event listener to the table, using event delegation
   const tableBody = document.querySelector('#branchTable');
+  const loader = document.getElementById('updateLoader');
 
   tableBody.addEventListener('click', function (event) {
     const editButtonPrefix = 'editButton_';
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (clickedButton.id.startsWith(editButtonPrefix)) {
         console.log('Edit button clicked');
-        redirec_toUpdate(clickedId);
+        redirecToUpdate(clickedId);
       } else if (clickedButton.id.startsWith(deleteButtonPrefix)) {
         console.log('Delete button clicked');
         deleteRow(clickedId);
@@ -26,27 +25,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Attach getBranches to the onclick event of the button
-  const getBranchesButton = document.getElementById('getBranchesButton');
-  if (getBranchesButton) {
-    getBranchesButton.addEventListener('click', getBranches);
-  } else {
-    console.error('Button not found.');
-  }
-
-  // Call the fetchCountries function to initiate the data fetching process
+  
   fetchCountries();
 
-  // Add event listener for country change
   const countrySelect = document.getElementById('countrySlec');
   countrySelect.addEventListener('change', function () {
-    // Call the fetchCities function when the country selection changes
     fetchCities();
   });
+  const citySelect = document.getElementById('city');
+  citySelect.addEventListener('change', function () {
+    fetchBranches();
+  });
 
-  // Function to fetch countries and trigger subsequent data fetching
   function fetchCountries() {
-    fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+    loader.style.display = 'block'; // Show loader before fetching countries
+
+    fetch('https://arabbanktest.azurewebsites.net/api/COUNTRY')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -54,9 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(countries => {
-        // Update the options in the select element
         const countrySelect = document.getElementById('countrySlec');
-        countrySelect.innerHTML = ''; // Clear existing options
+        countrySelect.innerHTML = '';
 
         countries.forEach(country => {
           const option = document.createElement('option');
@@ -65,19 +58,21 @@ document.addEventListener('DOMContentLoaded', function () {
           countrySelect.appendChild(option);
         });
 
-        // Trigger fetchCities directly after fetching countries
-        fetchCities();
+        fetchCities(); // Trigger fetchCities directly after fetching countries
       })
-      .catch(error => console.error('Error fetching countries:', error));
+      .catch(error => console.error('Error fetching countries:', error))
+      .finally(() => {
+        loader.style.display = 'none'; // Hide loader after fetching countries
+      });
   }
 
-  // Function to fetch cities and trigger subsequent data fetching
+  
   async function fetchCities() {
-    // Get the selected country
+    loader.style.display = 'block'; // Show loader before fetching cities
+
     const selectedCountry = document.getElementById('countrySlec').value;
 
-    // Make a POST request to the API
-    fetch('https://arabbank.azurewebsites.net/api/city/filter', {
+    fetch('https://arabbanktest.azurewebsites.net/api/city/filter', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,9 +81,8 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then(response => response.json())
       .then(data => {
-        // Update the city dropdown with the new data
         const cityDropdown = document.getElementById('city');
-        cityDropdown.innerHTML = ''; // Clear existing options
+        cityDropdown.innerHTML = '';
 
         data.forEach((city, index) => {
           const option = document.createElement('option');
@@ -96,17 +90,20 @@ document.addEventListener('DOMContentLoaded', function () {
           option.textContent = city.cityName;
           cityDropdown.appendChild(option);
 
-          // If it's the first city, trigger fetchBranches
           if (index === 0) {
             fetchBranches();
           }
         });
       })
-      .catch(error => console.error('Error fetching cities:', error));
+      .catch(error => console.error('Error fetching cities:', error))
+      .finally(() => {
+        loader.style.display = 'none'; // Hide loader after fetching cities
+      });
   }
+  
 
-  // Function to fetch branches based on selected country and city
   function fetchBranches() {
+    console.log('Fetching branches...');
     const selectedCountry = document.getElementById('countrySlec').value;
     const selectedCity = document.getElementById('city').value;
 
@@ -115,7 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
       city: selectedCity
     };
 
-    fetch('https://arabbank.azurewebsites.net/api/branch/getBranchByCountry', {
+    loader.style.display = 'block'; // Show loader before fetching branches
+    tableBody.innerHTML = ''; // Clear existing content
+
+    fetch('https://arabbanktest.azurewebsites.net/api/branch/getBranchByCountry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(data => {
         const branchTableBody = document.getElementById('branchTable');
-        branchTableBody.innerHTML = ''; // Clear existing rows
+        branchTableBody.innerHTML = '';
 
         if (data && data.length > 0) {
           data.forEach(branch => {
@@ -165,66 +165,44 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .catch(error => {
         console.error('Error fetching branches:', error);
+      })
+      .finally(() => {
+        loader.style.display = 'none'; // Hide loader after fetching branches
       });
   }
 
-  // Function to add event listeners to the table buttons
-  function addEventListeners() {
-    const tableBody = document.querySelector('#branchTable');
-
-    tableBody.addEventListener('click', function (event) {
-      const editButtonPrefix = 'editButton_';
-      const deleteButtonPrefix = 'deleteButton_';
-
-      const clickedButton = event.target.closest('button');
-
-      if (clickedButton) {
-        const clickedId = clickedButton.dataset.branchId;
-
-        if (clickedButton.id.startsWith(editButtonPrefix)) {
-          console.log('Edit button clicked');
-          redirec_toUpdate(clickedId);
-        } else if (clickedButton.id.startsWith(deleteButtonPrefix)) {
-          console.log('Delete button clicked');
-          deleteRow(clickedId);
-        } else {
-          console.log("None were selected");
-        }
-      }
-    });
-  }
-
-  // Function to redirect to the update page
-  function redirec_toUpdate(id) {
+  function redirecToUpdate(id) {
     console.log('Redirecting to update with ID:', id);
-    // Construct the new URL with the parameter
     var newUrl = `update_branch.html?id=${id}`;
-
-    // Redirect to the new URL
     window.location.href = newUrl;
   }
 
-  // Function to delete a row
   function deleteRow(id) {
-    // Make a DELETE request to the server to delete the corresponding data
-    fetch(`https://arabbank.azurewebsites.net/api/branch?id=${id}`, {
+    // Display a confirmation dialog
+    const isConfirmed = window.confirm('Are you sure you want to delete this branch?');
+  
+    if (!isConfirmed) {
+      return; // User clicked "Cancel" in the confirmation dialog
+    }
+  
+    // User clicked "OK" in the confirmation dialog, proceed with the delete request
+    fetch(`https://arabbanktest.azurewebsites.net/api/branch?id=${id}`, {
       method: 'DELETE',
     })
       .then(response => {
         if (response.ok) {
-          // If the server-side deletion is successful, remove the row from the DOM
           const row = document.querySelector(`#branchTable td[data-id="${id}"]`);
           if (row) {
-            row.parentElement.remove(); // Remove the entire row
-            console.log("Deleted successfully");
+            row.parentElement.remove();
+            console.log('Deleted successfully');
           } else {
             console.error('Row not found in the DOM');
           }
         } else {
-          // Handle errors here if needed
           console.error('Error deleting data:', response.status);
         }
       })
       .catch(error => console.error('Error deleting data:', error));
   }
+  
 });

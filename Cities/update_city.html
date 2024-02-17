@@ -12,33 +12,63 @@
 
 </head>
 
-<body>
+<body id="bodyStyle">
 
-  <h1>Update a city</h1>
-  <form id="updatecityForm" >
-    <label for="cityId" style="display: none;">city ID:</label>
-    <input type="text" id="cityId" name="cityId" style="display: none;" required>
+  <form id="cityForm">
+    <h1>Update City</h1>
+    <label for="cityId" style="display: none;">City ID:</label>
+    <input type="text" id="cityId" name="cityId" style="display: none;" hidden>
 
-    <label for="cityName">city Name:</label>
-    <input type="text" id="cityName" name="cityName" required>
+    <div class="mb-3">
+      <label for="cityName" class="form-label">City Name:</label>
+      <input type="text" id="cityName" name="cityName" class="form-control" required>
+      <div id="errorCityName" class="error"></div>
+    </div>
 
-    <label for="cityNameAR">city Name (AR):</label>
-    <input type="text" id="cityNameAR" name="cityNameAR" required>
+    <div class="mb-3">
+      <label for="cityNameAR" class="form-label">City Name (AR):</label>
+      <input type="text" id="cityNameAR" name="cityNameAR" class="form-control" required>
+      <div id="errorCityNameAR" class="error"></div>
+    </div>
 
-    <label for="country" style="display: none;"> Country</label>
-    <input type="text" id="country" name="country" style="display: none;" required>
+    <div class="mb-3">
+      <label for="country" class="form-label">Country:</label>
+      <select id="country" name="country" class="form-select" required></select>
+      <div id="errorCountry" class="error"></div>
+    </div>
 
-
-
-    <div class="gap-2"   id="form-button">
-      <button  class="btn btn-success btn-lg" type="button" onclick="updateleaflet(document.getElementById('leafletId').value)">Update</button>
-      <button  class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
+    <div class="gap-2" id="form-button">
+      <button class="btn btn-success btn-lg" type="button" onclick="updatecity(document.getElementById('cityId').value)">Update</button>
+      <button class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
     </div>
   </form>
 
   <script src="../Cities/JS_files/cities.js" defer></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="../Cities/JS_files/add_city.js"></script>
+  
+  <script>
+    // Fetch countries and populate the select element
+    const countrySelect = document.getElementById('country');
+
+    fetch('https://arabbanktest.azurewebsites.net/api/COUNTRY')
+      .then(response => response.json())
+      .then(countries => {
+        countries.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country.countryName;
+          option.textContent = country.countryName;
+          countrySelect.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching countries:', error);
+      });
+  </script>
   <script src="../Cities/JS_files/update_city.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

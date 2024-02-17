@@ -84,6 +84,7 @@
   }
   
   #countrySlec {
+    width: 16rem;
     padding-right: 100px; /* Adjust the padding to your preference */
     color: gray; /* Set the color to gray */
   }
@@ -167,4 +168,26 @@
   
   font-weight: bold; /* Set the desired font weight for h2 in .style-table */
   /* Add any other text styles as needed */
+}
+
+/* CSS for the loader */
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px; /* Half of the loader height */
+  margin-left: -25px; /* Half of the loader width */
+  z-index: 9999; /* Ensure the loader is above other elements */
+  display: none; /* Hide the loader by default */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

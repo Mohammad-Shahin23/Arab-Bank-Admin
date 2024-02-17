@@ -88,7 +88,16 @@ input[type="text"] {
    
 }
 
-.img-area {
+.img-area1,
+.img-area2,
+.img-area3,
+.img-area4,
+.img-area5,
+.img-area6,
+.img-area7,
+.img-area8
+ {
+
 	position: relative;
 	
 	height: 550px;
@@ -102,6 +111,19 @@ input[type="text"] {
 	flex-direction: column;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.img-area1 img,
+.img-area2 img,
+.img-area3 img,
+.img-area4 img,
+.img-area5 img,
+.img-area6 img,
+.img-area7 img,
+.img-area8 img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
 .img-area .icon {
 	font-size: 100px;
 }

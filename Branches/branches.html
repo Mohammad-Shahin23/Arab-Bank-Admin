@@ -17,6 +17,7 @@
 
 </head>
 <body>
+  <div id="updateLoader" class="loader"></div>
     <header>
       <nav class="navbar navbar-expand-lg p-3 mb-2 bg-body-secondary  " >
         <div class="container-fluid ">
@@ -74,7 +75,7 @@
         </svg>
         <div class="dropDown-list">      
           <label class="select" for="countrySlec">
-            <select id="countrySlec" required="required" onchange="fetchCities()">
+            <select id="countrySlec" required="required" >
                 
                 <!-- Options will be dynamically added here -->
             </select>
@@ -84,7 +85,7 @@
         </label>
 
       <label class="select" for="city">
-        <select id="city" required="required" onclick="fetchBranches()">
+        <select id="city" >
             <option value="" disabled="disabled" selected="selected">City</option>
             
             <!-- <option value="UAE">UAE</option>
@@ -105,7 +106,7 @@
                 <line x1="12" y1="8" x2="12" y2="16"></line>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
             </svg>
-            Add New City
+            Add New Branch
         </button>
     </div>
 

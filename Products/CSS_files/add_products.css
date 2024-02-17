@@ -1,7 +1,18 @@
-body {
+:root {
+	--blue: #0071FF;
+	--light-blue: #B6DBF6;
+	--dark-blue: #005DD1;
+	--grey: #f2f2f2;
+}
+
+
+#bodyStyle {
+  margin: 9% 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-blue);
 }
 
 h1 {
@@ -10,14 +21,13 @@ h1 {
 }
 
 form {
-  max-width: 600px;
+  width: 600px;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .form-group {
   margin-bottom: 20px;
 }
@@ -74,4 +84,43 @@ button {
 #closeButton {
   background-color: #dc3545;
   color: #fff;
+}
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 5px rgba(0, 113, 255, 0.5);
+}
+
+select option {
+  padding: 10px;
+  background-color: #fff;
 }

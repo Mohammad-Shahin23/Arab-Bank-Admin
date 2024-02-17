@@ -4,7 +4,7 @@ var urlParams = new URLSearchParams(window.location.search);
 
 function populateForm(id) {
     console.log('Edit Row function called with ID:', id);
-       fetch(`https://arabbank.azurewebsites.net/api/city/getcityById?cityid=${id}`, {
+       fetch(`https://arabbanktest.azurewebsites.net/api/city/getcityById?cityid=${id}`, {
       method: 'GET'
     })
       .then(response => response.json())
@@ -58,7 +58,7 @@ function populateForm(id) {
 
     console.log('New Data:', newData);
 
-    const url = `https://arabbank.azurewebsites.net/api/city/${id}`;
+    const url = `https://arabbanktest.azurewebsites.net/api/city/${id}`;
 
     fetch(url, {
         method: 'PUT',

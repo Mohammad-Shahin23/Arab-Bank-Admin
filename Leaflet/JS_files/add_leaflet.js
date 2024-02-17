@@ -48,70 +48,60 @@ if (selectImages.length === imgAreas.length && imgAreas.length === inputFiles.le
 
 function submitForm() {
   const formData = {
-    "country": document.getElementById('country').value,
-    "product": document.getElementById('leafletProductName').value,
-    "subProduct": document.getElementById('leafletSubProductName').value,
+      "country": document.getElementById('country').value,
+      "product": document.getElementById('leafletProductName').value,
+      "subProduct": document.getElementById('leafletSubProductName').value,
+      "subProductAr": document.getElementById('leafletSubProductAr').value,
   };
 
   // Loop through each 'file-input' element
   inputFiles.forEach((fileInput, index) => {
-    const fileName = fileInput.name;
-    const isVisible = !fileInput.closest('.container').hasAttribute('hidden');
+      const fileName = fileInput.name;
+      const isVisible = !fileInput.closest('.container').hasAttribute('hidden');
 
-    if (isVisible) {
-      const imageArea = imgAreas[index];
-      const imgElement = imageArea.querySelector('img');
+      if (isVisible) {
+          const imageArea = imgAreas[index];
+          const imgElement = imageArea.querySelector('img');
 
-      if (imgElement) {
-        // Resize image before converting to base64
-        const resizedCanvas = document.createElement("canvas");
-        const resizedCtx = resizedCanvas.getContext("2d");
-
-        resizedCanvas.width = 100; // Set the desired width
-        resizedCanvas.height = 100; // Set the desired height
-
-        resizedCtx.drawImage(imgElement, 0, 0, 100, 100); // Resize the image
-
-        // Convert resized image to base64
-        const resizedBase64Image = resizedCanvas.toDataURL("image/png").split(',')[1];
-
-        // Add base64 image to formData
-        formData[fileName] = `data:image/png;base64,${resizedBase64Image}`;
+          if (imgElement && imgElement.complete && imgElement.naturalWidth > 0) {
+              // Check if the image is fully loaded and has a natural width
+              formData[fileName] = imgElement.src;  // Use the original image source
+          } else {
+              formData[fileName] = null;
+          }
       } else {
-        formData[fileName] = null;
+          formData[fileName] = null;
       }
-    } else {
-      formData[fileName] = null;
-    }
   });
 
   // Make a POST request
-  fetch('https://arabbank.azurewebsites.net/api/leaflet', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
+  fetch('https://arabbanktest.azurewebsites.net/api/leaflet', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      // Redirect to a new page after successful submission
-      window.location.href = 'new_page.html';
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      // Handle errors as needed
-    });
+      .then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);
+          // Redirect to a new page after successful submission
+          window.location.href = './leaflet.html';
+      })
+      .catch((error) => {
+          console.error('Error:', error);
+          // Handle errors as needed
+      });
 }
+
 
 function closeForm() {
-  window.location.href = 'leaflet.html';
+  window.location.href = './leaflet.html';
 }
 
 
 
-fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
+fetch('https://arabbanktest.azurewebsites.net/api/COUNTRY')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -153,7 +143,7 @@ fetch('https://arabbank.azurewebsites.net/api/COUNTRY')
         const selectedCountry = document.getElementById('country').value;
     
         // Make a POST request to the API
-        fetch('https://arabbank.azurewebsites.net/api/Product/GetProductByCountry', {
+        fetch('https://arabbanktest.azurewebsites.net/api/Product/GetProductByCountry', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

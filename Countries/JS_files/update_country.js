@@ -67,7 +67,11 @@ var urlParams = new URLSearchParams(window.location.search);
  }
  
 
-function populateForm(id) {
+ function populateForm(id) {
+    // Show the loader while waiting for data
+    const updateLoader = document.getElementById('updateLoader');
+    updateLoader.style.display = 'block';
+  
     console.log('Edit Row function called with ID:', id);
     fetch(`https://arabbanktest.azurewebsites.net/api/country/getCountryById?countryid=${id}`, {
       method: 'GET'
@@ -83,24 +87,27 @@ function populateForm(id) {
         console.log('countryNameElement:', document.getElementById('countryName'));
   
         // Populate the form with the existing country data
-  
         console.log(countryIdElement);
   
-        
-          // Set values for each form field
-          
-          countryIdElement.value = currentCountryData.id;
-          document.getElementById('countryName').value = currentCountryData.countryName;
-          document.getElementById('countryNameAR').value = currentCountryData.countryNameAR;
-          document.getElementById('countryCode').value = currentCountryData.countryCode;
-          document.getElementById('mobileCode').value = currentCountryData.mobileCode;
-          document.getElementById('countryMobileHint').value = currentCountryData.countryMobileHint;
-          document.getElementById('countryCurrencyCode').value = currentCountryData.countryCurrencyCode;
-          document.getElementById('countryCurrencyCodeAr').value = currentCountryData.countryCurrencyCodeAr;
+        // Set values for each form field
+        countryIdElement.value = currentCountryData.id;
+        document.getElementById('countryName').value = currentCountryData.countryName;
+        document.getElementById('countryNameAR').value = currentCountryData.countryNameAR;
+        document.getElementById('countryCode').value = currentCountryData.countryCode;
+        document.getElementById('mobileCode').value = currentCountryData.mobileCode;
+        document.getElementById('countryMobileHint').value = currentCountryData.countryMobileHint;
+        document.getElementById('countryCurrencyCode').value = currentCountryData.countryCurrencyCode;
+        document.getElementById('countryCurrencyCodeAr').value = currentCountryData.countryCurrencyCodeAr;
   
-          
+        // Hide the loader after successful data retrieval
+        updateLoader.style.display = 'none';
       })
-      .catch(error => console.error('Error fetching country data:', error));
+      .catch(error => {
+        console.error('Error fetching country data:', error);
+  
+        // Hide the loader in case of an error
+        updateLoader.style.display = 'none';
+      });
   }
 
 

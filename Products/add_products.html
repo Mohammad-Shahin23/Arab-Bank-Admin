@@ -8,21 +8,32 @@
   <title>Add New product</title>
 
 </head>
-<body id="bodystyle">
+<body id="bodyStyle">
 
-  <h1>Add New product</h1>
+  
   
   <form id="productForm" >
-    <label for="productName">product Name:</label>
-    <input type="text" id="productName" name="productName" required>
-
-    <label for="productNameAR">product Name (AR):</label>
-    <input type="text" id="productNameAR" name="productNameAR" required>
-
-    <label for="country">Country</label>
-    <input type="text" id="country" name="country" required>
+    <h1>Add New product</h1>
 
     
+  <div class="mb-3">
+    <label for="country" class="form-label">Country:</label>
+    <select id="country" name="country" class="form-select" required></select>
+    <div id="errorCountry" class="error"></div> 
+</div>
+
+    
+    <div class="mb-3">
+      <label for="productName" class="form-label">product Name:</label>
+      <input type="text" id="productName" name="productName" class="form-control" required>
+      <div id="errorProductName" class="error"></div> 
+  </div>
+
+  <div class="mb-3">
+      <label for="productNameAR" class="form-label">City Name (AR):</label>
+      <input type="text" id="productNameAR" name="productNameAR" class="form-control" required>
+      <div id="errorProductNameAR" class="error"></div> 
+  </div>
 
    
     <div class="gap-2"  id="form-button">
@@ -33,7 +44,10 @@
     <!-- <button type="button" onclick="closeForm()">Close</button> -->
   </form>
 
-  
+  <script>
+    // Fetch countries and populate the select element
+    
+  </script>
 
   <script src="../Products/JS_files/add_products.js"> </script>
 

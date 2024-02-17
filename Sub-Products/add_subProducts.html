@@ -17,27 +17,38 @@
   <form id="subProductForm" onsubmit="submitForm(event)">
     <h1>Add New sub-Product</h1>
 
-
-    <label for="subProductName">subProduct Name:</label>
-    <input type="text" id="subProductName" name="subProductName" required>
-
-    <label for="subProductNameAR">subProduct Name (AR):</label>
-    <input type="text" id="subProductNameAR" name="subProductNameAR" required>
-
+    <div class="mb-3">
+      <label for="country" class="form-label">Country</label>
+      <select id="country" name="country" class="form-select" required></select>
+      <div id="errorCountry" class="error"></div>
+    </div>
     
-    <label for="loanDetail">loanDetail</label>
-    <input type="text" id="loanDetail" name="loanDetail" required>
+    <div class="mb-3">
+      <label for="product" class="form-label">Product</label>
+      <select id="product" name="product" class="form-select" required></select>
+      <div id="errorProduct" class="error"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="subProductName" class="form-label">subProduct Name:</label>
+      <input type="text" id="subProductName" name="subProductName" class="form-control" required>
+      <div id="errorSubProductName" class="error"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="subProductNameAR" class="form-label">subProduct Name (AR):</label>
+      <input type="text" id="subProductNameAR" name="subProductNameAR" class="form-control" required>
+      <div id="errorSubProductNameAR" class="error"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="loanDetail" class="form-label">loanDetail</label>
+      <input type="text" id="loanDetail" name="loanDetail" class="form-control" required>
+      <div id="errorLoanDetail" class="error"></div>
+    </div>
     
 
-    <label for="country">Country</label>
-<select id="country" name="country" required></select>
-
-    
-
-
-    <label for="product">Product</label>
-<select id="product" name="product" required></select>
-
+   
 
     <!-- Add this after the file input for image -->
     <div class="container">
@@ -55,7 +66,8 @@
 
    
   <div class="gap-2"  id="form-button">
-    <button class="btn btn-success btn-lg" type="button" onclick="submitForm()">Submit</button>
+    <button class="btn btn-success btn-lg" type="button" onclick="submitForm(event)">Submit</button>
+
     <button class="btn btn-danger btn-lg" type="button" onclick="closeForm()">Close</button>
   </div>
    
